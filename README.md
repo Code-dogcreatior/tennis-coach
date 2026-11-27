@@ -20,7 +20,21 @@ uv run tennis-coach
 
 模型权重已随仓库提供（Git LFS，`models/`）：RTMPose-m（body7，256×192，54 MB）和 YOLOX-m（HumanArt，101 MB）。克隆前请先安装 [Git LFS](https://git-lfs.com/)（`git lfs install`）；如果克隆时没有拉到 LFS 文件，程序会自动改为从 OpenMMLab 下载同一份权重。
 
-仓库不包含任何视频、姿态缓存和数据库（`data/` 下只提交 `labels/` 标注）。克隆后参考库是空的：职业参考需要用 `fetch_pro.py` + `build_pro_library.py` 在本地重建，演示参考用 `fetch_thetis.py` + `run_demo.py` 重建。
+仓库不包含任何视频、姿态缓存和数据库（`data/` 下只提交 `labels/` 标注）。克隆后参考库是空的，导入**职业参考包**就能直接做职业对比：
+
+```bash
+uv run python scripts/ref_pack.py import
+```
+
+参考包 `refpack/pro_reference_pack.zip`（60 MB，Git LFS）包含 20 段职业训练视频里 356 条参考挥拍（发球 198、正手 70、单反 44、双反 44）的派生数据：2D 关键点序列、特征、指标、剪辑点和标注。**没有任何视频画面。** 导入后：
+
+* 动作识别、分阶段 DTW 匹配、职业检查点范围、“主要问题”和练习建议都和完整参考库一致。用 19 段演示视频对比过：最接近的职业挥拍和报出的问题完全相同。
+* 关键帧对照图和同步播放里，职业一侧显示为骨架，标有“参考包：只有骨架，没有原视频”。
+* 参考包条目没有视频也可以重新分析，直接用包里的关键点。
+
+如果想看职业球员的真实画面，可以先 `ref_pack.py remove`，再用 `fetch_pro.py` 下载原视频、`build_pro_library.py` 在本地重建（需要几个小时的姿态提取）。
+
+**注意**：参考包里只有职业参考。THETIS 业余参考的许可不允许再分发，所以没有放进来，这会影响业余视频的动作识别。只用参考包时，THETIS 上被拒识为“未知”的目标动作从 19% 升到 29%，平击发球 66 段里识别出 42 段（完整参考库是 54 段）；识别出来的动作正确率不变（97%）。上传几段自己的示范视频到参考库可以缓解。
 
 > 已知环境问题（2026-11）：Windows 更新后，如果 `C:\Windows\System32\msvcp140.dll` 版本低于 14.40，`import onnxruntime` 会直接崩溃（rtmlib 导入时会加载 onnxruntime）。安装最新的 VC++ 运行库即可修复：`winget install Microsoft.VCRedist.2015+.x64`。
 
@@ -52,7 +66,7 @@ uv run tennis-coach
 
 职业发球按留一验证，23% 会被报出至少一条主要问题，这是目前的误报水平。
 
-**发球识别**（`scripts/eval_knn_library.py`，应用实际参考库，类别均衡投票）：
+**发球识别**（`scripts/eval_knn_library.py`，完整参考库 = 职业 + THETIS 演示参考，类别均衡投票；只导入参考包时的差别见上文“快速开始”）：
 
 * 职业发球（留一球员）：98.5% 被识别为发球。
 * THETIS 平击发球 66 段：54 段识别为发球，12 段拒识为“未知”，没有被判成其他动作。
@@ -70,6 +84,7 @@ uv run tennis-coach
 | `uv run python scripts/thetis_apparent_hand.py` | 生成 THETIS 每名球员“画面中持拍手”的真值（仅用于评测） |
 | `uv run python scripts/eval_thetis.py --hand gt` / `--hand auto` | 按球员隔离的评测，输出到 `reports/` |
 | `uv run python scripts/eval_knn_library.py` | 用应用实际参考库比较 kNN 投票方式（plain / source / balanced）在 THETIS 和职业留一上的识别效果 → `reports/knn_library_eval.json` |
+| `uv run python scripts/ref_pack.py export / import / remove` | 导出、导入、删除职业参考包（只有关键点等派生数据，没有视频画面），默认文件 `refpack/pro_reference_pack.zip` |
 | `uv run python scripts/fetch_pro.py [--only ID ...]` | 按 `data/labels/pro_manifest.csv` 用 yt-dlp 下载职业训练视频到 `data/raw/pro/<id>/`（公开视频、不登录；`section` 列可只截一段） |
 | `uv run python scripts/build_pro_library.py` | 把 `data/labels/pro_manifest.csv` 中的职业训练视频（先用 yt-dlp 下载到 `data/raw/pro/<id>/`）作为职业参考导入；`pro_autolabel.py` 生成挥拍标签后，加 `--review-only` 应用标签 |
 | `uv run python scripts/eval_pro_compare.py` | 职业对比的验证：职业球员留一误报率 + THETIS 新手/有经验球员触发率；生成运行时使用的检查点验证表 `src/tennis_coach/checkpoint_validation.json` |
@@ -105,5 +120,6 @@ scripts/            数据获取、评测、调试
 tests/              单元测试
 docs/               DATASETS.md 数据核验清单 · MODELS.md 模型与算法 · REPORT.md 评测报告 · RESHOOT.md 补拍清单
 models/             RTMPose-m / YOLOX-m ONNX 权重（Git LFS）
+refpack/            职业参考包（Git LFS，只有派生数据，没有视频画面）
 data/ (git 忽略)    raw/ 原始数据 · store/ 上传视频 · derived/ 姿态缓存与派生文件 · labels/ 评测标注 · *.sqlite3
 ```

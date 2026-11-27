@@ -71,7 +71,7 @@ def merge_serve_preparation(P, t, windows, fps_p, shot):
 def analyse_video(video_path: str, hand_override: str | None = None, view_override: dict | None = None,
                   action_overrides: dict | None = None, refs: list[dict] | None = None,
                   progress: Callable[[str, float], None] | None = None, pose: PoseSeq | None = None,
-                  time_scale: float | None = 1.0) -> dict:
+                  time_scale: float | None = 1.0, cuts: np.ndarray | None = None) -> dict:
     """time_scale: real seconds per video second (1.0 = real time, 0.25 = 4x slow motion, None = unknown).
     With an unknown time scale, durations/speeds are not comparable and are marked unreliable."""
     """Analyse every swing found in a video.
@@ -93,7 +93,8 @@ def analyse_video(video_path: str, hand_override: str | None = None, view_overri
     P, Hip, torso = normalise(cs.K, tt if torso_adaptive else None)
     # --- shots (edits / camera cuts): never compute motion across a cut ---
     try:
-        cuts = cuts_cached(video_path)
+        # cuts: given explicitly for reference-pack entries, which have no video file to scan
+        cuts = cuts if cuts is not None else cuts_cached(video_path)
         fi = pose.frame_index   # pose may be strided (high-fps input): cuts are per video frame
         if len(cuts) and len(fi) == len(pose.t) and int(fi[-1]) < len(cuts):
             shot_src = np.cumsum(cuts)[fi]

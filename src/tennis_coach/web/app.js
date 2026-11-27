@@ -108,7 +108,7 @@ async function openAnalysis(id) {
     + ` · 分析版本 ${esc(a.analysis_version)} · 参考库 ${a.n_refs_available} 条 · 时间尺度 ${a.time_known ? fmt(a.time_scale, 3) : "未知（慢动作？）"}`;
   AN.pose = await api(`/api/videos/${id}/pose`).catch(() => null);
   const vu = $(".v-user", root); vu.src = `/api/videos/${id}/file`;
-  AN.vu = vu; AN.vr = $(".v-ref", root); AN.cu = $(".c-user", root); AN.cr = $(".c-ref", root);
+  AN.vu = vu; AN.vrEl = $(".v-ref", root); AN.vr = AN.vrEl; AN.cu = $(".c-user", root); AN.cr = $(".c-ref", root);
   const tabs = $(".swing-tabs", root);
   if (!a.swings.length) { tabs.innerHTML = `<span class="empty">未检测到挥拍。</span>`; renderQuality(a, null); return; }
   tabs.innerHTML = a.swings.map((s) => `<button data-i="${s.index}">#${s.index + 1} ${esc(ACTION(s.action))} @${fmt(s.window.tv_peak, 1)}s</button>`).join("");
@@ -127,9 +127,10 @@ async function selectSwing(i) {
   if (cand) {
     const rd = await api(`/api/references/${cand.ref_id}`);
     AN.ref = { cand, detail: rd, sw: rd.swing, ts: rd.time_scale || 1, pose: await api(`/api/videos/${rd.video.id}/pose`).catch(() => null) };
-    AN.vr.src = `/api/videos/${rd.video.id}/file`;
+    useRefSource(rd, AN.ref.pose);
     $(".ref-title", AN.root).innerHTML = `参考：${esc(rd.video.meta?.player || rd.video.filename)} · 挥拍 #${rd.ref.swing_index + 1} · `
       + (cand.pro ? `<span class="badge info">职业示范 · 最接近你的职业挥拍</span> ` : "")
+      + (rd.video.has_video === false ? `<span class="badge info">参考包：只有骨架，没有原视频</span> ` : "")
       + `<span class="badge ${rd.ref.review_status === "coach_reviewed" ? "good" : "warn"}">${rd.ref.review_status === "coach_reviewed" ? "教练审核" : "未经教练审核"}</span> DTW 距离 ${fmt(cand.cost)}`
       + `<br>库内标注：<b>${esc(ACTION(rd.ref.action))}</b> <a href="#" class="ref-wrong">标注不对？排除这条并重新分析</a>`;
     $(".ref-wrong", AN.root).onclick = async (e) => {
@@ -139,12 +140,35 @@ async function selectSwing(i) {
       await api(`/api/videos/${AN.video.id}/reanalyse`, { method: "POST" }); poll();
     };
   } else {
-    AN.vr.removeAttribute("src"); AN.vr.load();
+    useRefSource(null, null);
     $(".ref-title", AN.root).textContent = "参考：无（" + (sw.match?.message || "未匹配") + "）";
   }
   AN.vu.currentTime = sw.analysed_range_v ? Math.max(0, sw.analysed_range_v[0] - 0.3) : sw.window.tv0;
   buildMapping(); renderTimeline(); renderPro(); renderRecog(); renderCorrect(); renderFeedback(); renderMetrics(); renderCurves(); renderQuality(a, sw);
   drawFrame();
+}
+
+// Reference-pack entries have keypoints but no video: the right-hand player is then a "virtual video"
+// (an object with currentTime / videoWidth ...) and the skeleton is drawn on an empty background, zoomed to
+// the player's area during this swing.
+function useRefSource(rd, pose) {
+  const el = AN.vrEl;
+  el.classList.remove("novideo");
+  if (!rd) { el.removeAttribute("src"); el.load(); AN.vr = el; return; }
+  if (rd.video.has_video !== false) { AN.vr = el; el.src = `/api/videos/${rd.video.id}/file`; return; }
+  el.removeAttribute("src"); el.load(); el.classList.add("novideo");
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  if (pose) {
+    const w = rd.swing?.window || {}, t0 = (w.tv0 ?? 0) - 0.5, t1 = (w.tv1 ?? 1e9) + 0.5;
+    pose.t.forEach((t, i) => {
+      if (t < t0 || t > t1) return;
+      pose.kpts[i].forEach((k, j) => { if (pose.scores[i][j] >= 0.3 && k[0] >= 0) { x0 = Math.min(x0, k[0]); x1 = Math.max(x1, k[0]); y0 = Math.min(y0, k[1]); y1 = Math.max(y1, k[1]); } });
+    });
+  }
+  if (!(x1 > x0)) { x0 = 0; y0 = 0; x1 = pose?.width || 1280; y1 = pose?.height || 720; }
+  const m = 0.12 * Math.max(x1 - x0, y1 - y0);
+  const crop = { x0: x0 - m, y0: y0 - m, w: x1 - x0 + 2 * m, h: y1 - y0 + 2 * m };
+  AN.vr = { virtual: true, currentTime: 0, readyState: 4, videoWidth: crop.w, videoHeight: crop.h, crop };
 }
 
 // ---- time mapping user video time -> reference video time
@@ -248,14 +272,15 @@ function nearestIdx(t, x) { let lo = 0, hi = t.length - 1; while (hi - lo > 1) {
 function drawPose(canvas, video, pose) {
   const r = canvas.getBoundingClientRect(); canvas.width = r.width; canvas.height = r.height;
   const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (!pose || !$(".chk-skel", AN.root).checked || !video.videoWidth) return;
+  if (!pose || !(video.virtual || $(".chk-skel", AN.root).checked) || !video.videoWidth) return;
   const i = nearestIdx(pose.t, video.currentTime);
   const k = pose.kpts[i], s = pose.scores[i];
   const sc = Math.min(r.width / video.videoWidth, r.height / video.videoHeight);
   const ox = (r.width - video.videoWidth * sc) / 2, oy = (r.height - video.videoHeight * sc) / 2;
-  const sx = sc * video.videoWidth / pose.width, sy = sc * video.videoHeight / pose.height;
-  const P = (j) => [ox + k[j][0] * sx, oy + k[j][1] * sy];
-  ctx.lineWidth = 3;
+  const c = video.crop;   // virtual reference: pose pixels map straight onto the zoomed crop
+  const sx = c ? sc : sc * video.videoWidth / pose.width, sy = c ? sc : sc * video.videoHeight / pose.height;
+  const P = (j) => [ox + (k[j][0] - (c ? c.x0 : 0)) * sx, oy + (k[j][1] - (c ? c.y0 : 0)) * sy];
+  ctx.lineWidth = c ? 4 : 3;
   for (const [a, b] of EDGES) {
     if (s[a] < 0.3 || s[b] < 0.3 || k[a][0] < 0 || k[b][0] < 0) continue;
     ctx.strokeStyle = LEFT.has(a) && LEFT.has(b) ? "#29a3ff" : (!LEFT.has(a) && !LEFT.has(b) ? "#ff8a1f" : "#ddd");
@@ -504,7 +529,9 @@ async function previewRef(id) {
   const d = await api(`/api/references/${id}`); const el = $("#ref-preview");
   const sw = d.swing;
   el.innerHTML = `<h3>参考 #${id} 预览：${esc(ACTION(d.ref.action))} · ${esc(META.view_keys[d.ref.view_key] || "")}</h3>
-    <div class="vwrap" style="max-width:520px"><video controls muted playsinline src="/api/videos/${d.video.id}/file#t=${Math.max(0, sw.window.tv0)},${sw.window.tv1}"></video></div>
+    ${d.video.has_video === false
+      ? `<p class="hint">这条来自职业参考包：只有关键点数据，没有原视频（视频不随项目分发）。对比时以骨架显示；原视频见下方来源链接。</p>`
+      : `<div class="vwrap" style="max-width:520px"><video controls muted playsinline src="/api/videos/${d.video.id}/file#t=${Math.max(0, sw.window.tv0)},${sw.window.tv1}"></video></div>`}
     <div class="hint">来源：${esc(d.video.meta?.source || "未填写")} · 许可：${esc(d.video.meta?.license || "未说明")} · 商用：${esc(d.video.meta?.license_commercial || "未说明")} · 再分发：${esc(d.video.meta?.redistribution || "未说明")}</div>
     <div class="hint">阶段：${(sw.phases?.segments || []).map((s) => `${esc(s.label)} ${fmt(s.tv0)}–${fmt(s.tv1)}s`).join(" | ")}</div>`;
 }

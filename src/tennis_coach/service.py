@@ -33,6 +33,11 @@ def derived_dir(vid: str) -> Path:
     return config.DERIVED_DIR / vid
 
 
+def has_video(v: dict | None) -> bool:
+    """False for reference-pack entries (keypoints only, the source video is not distributed)."""
+    return bool(v and v.get("path") and Path(v["path"]).exists())
+
+
 # ----------------------------------------------------------------------------------------------
 # job queue (single worker: pose inference is the bottleneck and the GPU/CPU is shared)
 # ----------------------------------------------------------------------------------------------
@@ -112,25 +117,33 @@ def process(vid: str, reanalyse_only: bool = False):
     db.update_video(vid, status="running", error=None)
     d = video_dir(vid)
     mp4 = d / "video.mp4"
-    if not mp4.exists():
-        prog("transcode", 0)
-        info = transcode(v["orig_path"], mp4)
-        from .video import probe
-        orig_info = probe(v["orig_path"])
-        db.update_video(vid, path=str(mp4), sha1=file_sha1(mp4),
-                        info={**info.to_dict(), "original": orig_info.to_dict()})
-    pose, hit = extract_cached(mp4, progress=lambda p: prog("pose", p))
-    # keep a per-video copy of the pose for the UI / deletion bookkeeping
     dd = derived_dir(vid)
-    dd.mkdir(parents=True, exist_ok=True)
-    pose.save(dd / "pose.npz")
+    cuts = None
+    if not mp4.exists() and not v.get("orig_path") and (dd / "pose.npz").exists():
+        # reference-pack entry: keypoints only, no video file -> re-analyse from the stored pose and cuts
+        pose = PoseSeq.load(dd / "pose.npz")
+        cuts = np.load(dd / "cuts.npy") if (dd / "cuts.npy").exists() else np.zeros(0, bool)
+        video_arg = ""
+    else:
+        if not mp4.exists():
+            prog("transcode", 0)
+            info = transcode(v["orig_path"], mp4)
+            from .video import probe
+            orig_info = probe(v["orig_path"])
+            db.update_video(vid, path=str(mp4), sha1=file_sha1(mp4),
+                            info={**info.to_dict(), "original": orig_info.to_dict()})
+        pose, hit = extract_cached(mp4, progress=lambda p: prog("pose", p))
+        # keep a per-video copy of the pose for the UI / deletion bookkeeping
+        dd.mkdir(parents=True, exist_ok=True)
+        pose.save(dd / "pose.npz")
+        video_arg = str(mp4)
     ts = meta.get("time_scale", 1.0)
     ts = None if ts in (None, "unknown", "") else float(ts)
     refs = load_refs(exclude_video=vid)
     kw = dict(hand_override=meta.get("hand") or None, view_override=meta.get("view_override") or None,
-              refs=refs, progress=prog, pose=pose, time_scale=ts)
+              refs=refs, progress=prog, pose=pose, time_scale=ts, cuts=cuts)
     act_over = {int(k): a for k, a in (meta.get("action_overrides") or {}).items() if a in ACTIONS}
-    res = analyse_video(str(mp4), action_overrides=act_over or None, **kw)
+    res = analyse_video(video_arg, action_overrides=act_over or None, **kw)
     auto = {sw["index"]: sw["classification"]["rule_action"] for sw in res["swings"]}
     declared = meta.get("action") if meta.get("action") in ACTIONS - {"unknown"} else None
     if declared:
@@ -140,7 +153,7 @@ def process(vid: str, reanalyse_only: bool = False):
         extra = {sw["index"]: declared for sw in res["swings"]
                  if not sw["classification"]["scores"].get("non_stroke") and sw["index"] not in act_over}
         if extra:
-            res = analyse_video(str(mp4), action_overrides={**extra, **act_over}, **kw)
+            res = analyse_video(video_arg, action_overrides={**extra, **act_over}, **kw)
     for sw in res["swings"]:
         sw["auto_action"] = auto.get(sw["index"])
     prog("match", 0)
@@ -229,7 +242,8 @@ def get_ref_detail(rid: int) -> dict | None:
         return None
     v = db.get_video(r["video_id"])
     sw = next((s for s in (v.get("analysis") or {}).get("swings", []) if s["index"] == r["swing_index"]), None)
-    return {"ref": r, "video": {k: v[k] for k in ("id", "filename", "meta", "info")}, "swing": sw,
+    return {"ref": r, "video": {**{k: v[k] for k in ("id", "filename", "meta", "info")}, "has_video": has_video(v)},
+            "swing": sw,
             "time_scale": (v.get("analysis") or {}).get("time_scale", 1.0)}
 
 
@@ -254,13 +268,21 @@ def _panel(vid: str, sw: dict, an: dict, cp_key: str | None, event: str, flip: b
     if pose is None or tv is None:
         return None
     fi = int(np.argmin(np.abs(pose.t - tv)))
-    img = read_frame_at(v["path"], pose.video_frame(fi))
-    if img is None:
-        return None
+    if has_video(v):
+        img = read_frame_at(v["path"], pose.video_frame(fi))
+        if img is None:
+            return None
+    else:   # reference pack: no video frames -> skeleton on a plain background
+        img = np.full((pose.height, pose.width, 3), 38, np.uint8)
     hand = sw.get("hand") or an["hand"]["hand"]
     measure = "horizontal" if cp_key in ("gs_contact_front", "gs_backswing_depth", "gs_nonhit_arm") else None
-    return keyframe_panel(img, pose.kpts[fi], pose.scores[fi], highlight_joints(cp_key, hand) if cp_key else [],
-                          flip=flip, measure=measure, hand=hand)
+    out = keyframe_panel(img, pose.kpts[fi], pose.scores[fi], highlight_joints(cp_key, hand) if cp_key else [],
+                         flip=flip, measure=measure, hand=hand)
+    if not has_video(v):
+        import cv2
+        cv2.putText(out, "skeleton only (reference pack)", (8, out.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                    (200, 200, 200), 1, cv2.LINE_AA)
+    return out
 
 
 def compare_image(vid: str, k: int, cp_key: str | None = None, event: str | None = None,
