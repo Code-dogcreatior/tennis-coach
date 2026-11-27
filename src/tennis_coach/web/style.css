@@ -55,7 +55,9 @@ header small { font-weight: 400; color: var(--header-muted); font-size: 12px; }
 nav { display: flex; gap: 2px; align-self: stretch; }
 nav button { background: transparent; color: var(--header-muted); border: 0; border-radius: 0; padding: 0 14px;
   font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent; }
-nav button:hover { color: var(--header-fg); background: transparent; }
+nav button:hover, nav a:hover { color: var(--header-fg); background: transparent; }
+nav a { display: flex; align-items: center; color: var(--header-muted); padding: 0 14px; text-decoration: none; font-size: 13.5px; border-bottom: 2px solid transparent; }
+nav a.active { color: var(--header-fg); border-bottom-color: #d4e84a; }
 nav button.active { color: var(--header-fg); border-bottom-color: #d4e84a; background: transparent; }
 
 main { padding: 20px; max-width: 1560px; margin: 0 auto; }

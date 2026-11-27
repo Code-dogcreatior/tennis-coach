@@ -84,6 +84,9 @@ uv run python scripts/ref_pack.py import
 | `uv run python scripts/thetis_apparent_hand.py` | 生成 THETIS 每名球员“画面中持拍手”的真值（仅用于评测） |
 | `uv run python scripts/eval_thetis.py --hand gt` / `--hand auto` | 按球员隔离的评测，输出到 `reports/` |
 | `uv run python scripts/eval_knn_library.py` | 用应用实际参考库比较 kNN 投票方式（plain / source / balanced）在 THETIS 和职业留一上的识别效果 → `reports/knn_library_eval.json` |
+| `uv run python scripts/fetch_eval_real.py` | 下载真实场景评测片段（8 段 CC BY 业余视频，清单 `data/labels/eval_real_manifest.csv`），并转换成标注要求的格式 |
+| `uv run python scripts/prep_annotate.py <视频…>` | 把自己的视频转换成恒定帧率、首帧 0 秒、无音频的 MP4，放进 `data/raw/annotate/` 供标注 |
+| `uv run python scripts/eval_real.py [--annotator 名字]` | 用 `/annotate.html` 标注的结果评测检出率、动作识别、击球时刻误差和持拍手 → `reports/eval_real.md`（标注说明见 [docs/ANNOTATION.md](docs/ANNOTATION.md)） |
 | `uv run python scripts/ref_pack.py export / import / remove` | 导出、导入、删除职业参考包（只有关键点等派生数据，没有视频画面），默认文件 `refpack/pro_reference_pack.zip` |
 | `uv run python scripts/fetch_pro.py [--only ID ...]` | 按 `data/labels/pro_manifest.csv` 用 yt-dlp 下载职业训练视频到 `data/raw/pro/<id>/`（公开视频、不登录；`section` 列可只截一段） |
 | `uv run python scripts/build_pro_library.py` | 把 `data/labels/pro_manifest.csv` 中的职业训练视频（先用 yt-dlp 下载到 `data/raw/pro/<id>/`）作为职业参考导入；`pro_autolabel.py` 生成挥拍标签后，加 `--review-only` 应用标签 |

@@ -98,6 +98,12 @@ class PoseEstimator:
     _instance: "PoseEstimator | None" = None
 
     def __init__(self, backend: str = config.POSE_BACKEND, device: str = config.POSE_DEVICE):
+        import sys
+        if backend == "openvino" and "onnxruntime" not in sys.modules:
+            # rtmlib probes onnxruntime at import time even when another backend is used. On Windows with an
+            # outdated System32 msvcp140.dll (< 14.40) that import crashes the whole process (no exception),
+            # so make it a clean ImportError, which rtmlib handles. OpenVINO does not need onnxruntime.
+            sys.modules["onnxruntime"] = None
         from rtmlib import YOLOX, RTMPose
 
         last_err = None

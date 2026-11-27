@@ -194,3 +194,13 @@ def test_toss_hand_low_flags_smash_like_preparation():
     rule = Classification("serve", 0.35, [], "serve", 0.35, scores={"smash_like": 1.0})
     kv = {"label": "serve", "votes": {"serve": 3}, "k": 3, "nearest_cost": 0.5, "cost_threshold": 1.6}
     assert combine_with_knn(rule, kv).confidence <= 0.35      # kNN agreement must not hide the smash flag
+
+
+def test_annotation_api_only_serves_videos_under_annotation_roots():
+    import pytest
+    from fastapi import HTTPException
+    from tennis_coach.annotate import _path, label_path
+    for bad in ("../tennis_coach.sqlite3", "eval_real/../../pyproject.toml", "pro/x/x.mp4", "eval_real/none.mp4"):
+        with pytest.raises(HTTPException):
+            _path(bad)
+    assert label_path("eval_real/a/b.mp4").name == "eval_real__a__b.json"

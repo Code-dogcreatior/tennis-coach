@@ -217,6 +217,11 @@ def delete_ref(rid: int):
     return {"ok": True, "note": "仅从参考库移除，源视频保留；如需删除视频请在视频列表中删除"}
 
 
+# ---------------------------------------------------------------------------------------------- annotation
+from .annotate import router as annot_router  # noqa: E402
+
+app.include_router(annot_router)
+
 # ---------------------------------------------------------------------------------------------- web
 if WEB_DIR.exists():
     app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="web")
