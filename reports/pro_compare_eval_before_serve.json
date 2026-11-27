@@ -1,0 +1,848 @@
+{
+ "n_pro_swings": 174,
+ "pro_players": [
+  "Alex Eala",
+  "Ben Shelton",
+  "Carlos Alcaraz",
+  "Daniil Medvedev",
+  "Dominic Thiem",
+  "Dusan Lajovic",
+  "Holger Rune",
+  "Jannik Sinner",
+  "Novak Djokovic",
+  "Rafael Nadal",
+  "Roger Federer",
+  "serve compilation (Fritz/Rublev/Alcaraz/Djokovic/Sinner/Zverev/Shelton...)"
+ ],
+ "pro_by_action": {
+  "backhand_2h": 41,
+  "forehand": 66,
+  "serve": 23,
+  "backhand_1h": 44
+ },
+ "pro_leave_one_player_out": {
+  "backhand_2h": {
+   "n_swings": 41,
+   "mean_issues_per_swing": 0.463,
+   "share_with_any_issue": 0.317,
+   "per_checkpoint": {
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 16,
+     "issue_rate": 0.062
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 16,
+     "issue_rate": 0.062
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 41,
+     "issue_rate": 0.098
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 41,
+     "issue_rate": 0.049
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 16,
+     "issue_rate": 0.0
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 16,
+     "issue_rate": 0.25
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 41,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 41,
+     "issue_rate": 0.098
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 16,
+     "issue_rate": 0.062
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 15,
+     "issue_rate": 0.067
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 16,
+     "issue_rate": 0.0
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 41,
+     "issue_rate": 0.024
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 16,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 15,
+     "issue_rate": 0.0
+    }
+   }
+  },
+  "forehand": {
+   "n_swings": 66,
+   "mean_issues_per_swing": 0.606,
+   "share_with_any_issue": 0.379,
+   "per_checkpoint": {
+    "gs_arm_ext": {
+     "label": "击球时持拍臂伸展（肘角）",
+     "measured": 16,
+     "issue_rate": 0.188
+    },
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 16,
+     "issue_rate": 0.188
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 16,
+     "issue_rate": 0.062
+    },
+    "gs_cross_fb": {
+     "label": "随挥越过身体（正/背面）",
+     "measured": 41,
+     "issue_rate": 0.073
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 66,
+     "issue_rate": 0.061
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 66,
+     "issue_rate": 0.03
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 16,
+     "issue_rate": 0.125
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 16,
+     "issue_rate": 0.25
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 66,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 66,
+     "issue_rate": 0.091
+    },
+    "gs_nonhit_arm": {
+     "label": "非持拍手前伸",
+     "measured": 16,
+     "issue_rate": 0.125
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 16,
+     "issue_rate": 0.125
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 41,
+     "issue_rate": 0.049
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 16,
+     "issue_rate": 0.125
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 66,
+     "issue_rate": 0.03
+    },
+    "gs_spacing_fb": {
+     "label": "击球点与身体的横向距离（正/背面）",
+     "measured": 41,
+     "issue_rate": 0.049
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 16,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 41,
+     "issue_rate": 0.0
+    }
+   }
+  },
+  "serve": {
+   "n_swings": 23,
+   "mean_issues_per_swing": 0.478,
+   "share_with_any_issue": 0.391,
+   "per_checkpoint": {
+    "sv_arm_ext": {
+     "label": "击球时手臂伸展",
+     "measured": 23,
+     "issue_rate": 0.043
+    },
+    "sv_contact_reach": {
+     "label": "击球点高度",
+     "measured": 23,
+     "issue_rate": 0.043
+    },
+    "sv_drop": {
+     "label": "持拍手下落",
+     "measured": 23,
+     "issue_rate": 0.217
+    },
+    "sv_leg_drive": {
+     "label": "发球蹬伸",
+     "measured": 23,
+     "issue_rate": 0.087
+    },
+    "sv_shoulder_tilt": {
+     "label": "奖杯姿势肩部倾斜",
+     "measured": 5,
+     "issue_rate": 0.0
+    },
+    "sv_toss_arm": {
+     "label": "抛球手上举",
+     "measured": 23,
+     "issue_rate": 0.0
+    },
+    "sv_tuck": {
+     "label": "非持拍手回收",
+     "measured": 23,
+     "issue_rate": 0.087
+    }
+   }
+  },
+  "backhand_1h": {
+   "n_swings": 44,
+   "mean_issues_per_swing": 0.386,
+   "share_with_any_issue": 0.205,
+   "per_checkpoint": {
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 44,
+     "issue_rate": 0.068
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 44,
+     "issue_rate": 0.068
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 44,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 44,
+     "issue_rate": 0.091
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 10,
+     "issue_rate": 0.1
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 44,
+     "issue_rate": 0.091
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 10,
+     "issue_rate": 0.2
+    }
+   }
+  }
+ },
+ "thetis_beginner": {
+  "backhand_1h": {
+   "n_swings": 33,
+   "mean_issues_per_swing": 0.273,
+   "share_with_any_issue": 0.182,
+   "per_checkpoint": {
+    "gs_arm_ext": {
+     "label": "击球时持拍臂伸展（肘角）",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 33,
+     "issue_rate": 0.121
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 11,
+     "issue_rate": 0.0
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 33,
+     "issue_rate": 0.03
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 11,
+     "issue_rate": 0.0
+    }
+   }
+  },
+  "backhand_2h": {
+   "n_swings": 33,
+   "mean_issues_per_swing": 0.303,
+   "share_with_any_issue": 0.182,
+   "per_checkpoint": {
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 33,
+     "issue_rate": 0.03
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 33,
+     "issue_rate": 0.03
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 33,
+     "issue_rate": 0.03
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 33,
+     "issue_rate": 0.182
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 33,
+     "issue_rate": 0.03
+    }
+   }
+  },
+  "serve": {
+   "n_swings": 33,
+   "mean_issues_per_swing": 2.939,
+   "share_with_any_issue": 1.0,
+   "per_checkpoint": {
+    "sv_arm_ext": {
+     "label": "击球时手臂伸展",
+     "measured": 33,
+     "issue_rate": 0.212
+    },
+    "sv_contact_reach": {
+     "label": "击球点高度",
+     "measured": 33,
+     "issue_rate": 0.576
+    },
+    "sv_drop": {
+     "label": "持拍手下落",
+     "measured": 33,
+     "issue_rate": 0.242
+    },
+    "sv_leg_drive": {
+     "label": "发球蹬伸",
+     "measured": 33,
+     "issue_rate": 0.636
+    },
+    "sv_shoulder_tilt": {
+     "label": "奖杯姿势肩部倾斜",
+     "measured": 16,
+     "issue_rate": 1.0
+    },
+    "sv_toss_arm": {
+     "label": "抛球手上举",
+     "measured": 33,
+     "issue_rate": 0.636
+    },
+    "sv_tuck": {
+     "label": "非持拍手回收",
+     "measured": 33,
+     "issue_rate": 0.152
+    }
+   }
+  },
+  "forehand": {
+   "n_swings": 66,
+   "mean_issues_per_swing": 0.606,
+   "share_with_any_issue": 0.455,
+   "per_checkpoint": {
+    "gs_arm_ext": {
+     "label": "击球时持拍臂伸展（肘角）",
+     "measured": 2,
+     "issue_rate": 0.0
+    },
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 2,
+     "issue_rate": 0.5
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 2,
+     "issue_rate": 0.0
+    },
+    "gs_cross_fb": {
+     "label": "随挥越过身体（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.127
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 66,
+     "issue_rate": 0.045
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 66,
+     "issue_rate": 0.0
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 2,
+     "issue_rate": 0.5
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 2,
+     "issue_rate": 0.5
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 66,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 66,
+     "issue_rate": 0.333
+    },
+    "gs_nonhit_arm": {
+     "label": "非持拍手前伸",
+     "measured": 2,
+     "issue_rate": 0.0
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 2,
+     "issue_rate": 0.0
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.0
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 2,
+     "issue_rate": 0.5
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 66,
+     "issue_rate": 0.015
+    },
+    "gs_spacing_fb": {
+     "label": "击球点与身体的横向距离（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.032
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 2,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.0
+    }
+   }
+  }
+ },
+ "thetis_experienced": {
+  "backhand_1h": {
+   "n_swings": 32,
+   "mean_issues_per_swing": 1.375,
+   "share_with_any_issue": 0.562,
+   "per_checkpoint": {
+    "gs_arm_ext": {
+     "label": "击球时持拍臂伸展（肘角）",
+     "measured": 4,
+     "issue_rate": 0.5
+    },
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 4,
+     "issue_rate": 0.75
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 4,
+     "issue_rate": 0.5
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 32,
+     "issue_rate": 0.125
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 32,
+     "issue_rate": 0.062
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 4,
+     "issue_rate": 1.0
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 4,
+     "issue_rate": 0.25
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 32,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 32,
+     "issue_rate": 0.219
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 4,
+     "issue_rate": 0.0
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 12,
+     "issue_rate": 0.583
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 4,
+     "issue_rate": 0.75
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 32,
+     "issue_rate": 0.25
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 4,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 12,
+     "issue_rate": 0.083
+    }
+   }
+  },
+  "backhand_2h": {
+   "n_swings": 33,
+   "mean_issues_per_swing": 1.061,
+   "share_with_any_issue": 0.545,
+   "per_checkpoint": {
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 3,
+     "issue_rate": 1.0
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 3,
+     "issue_rate": 1.0
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 3,
+     "issue_rate": 1.0
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 3,
+     "issue_rate": 0.667
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 33,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 33,
+     "issue_rate": 0.061
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 3,
+     "issue_rate": 0.0
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 27,
+     "issue_rate": 0.074
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 3,
+     "issue_rate": 1.0
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 33,
+     "issue_rate": 0.455
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 3,
+     "issue_rate": 0.333
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 27,
+     "issue_rate": 0.037
+    }
+   }
+  },
+  "serve": {
+   "n_swings": 33,
+   "mean_issues_per_swing": 1.576,
+   "share_with_any_issue": 0.727,
+   "per_checkpoint": {
+    "sv_arm_ext": {
+     "label": "击球时手臂伸展",
+     "measured": 33,
+     "issue_rate": 0.061
+    },
+    "sv_contact_reach": {
+     "label": "击球点高度",
+     "measured": 33,
+     "issue_rate": 0.303
+    },
+    "sv_drop": {
+     "label": "持拍手下落",
+     "measured": 33,
+     "issue_rate": 0.182
+    },
+    "sv_leg_drive": {
+     "label": "发球蹬伸",
+     "measured": 33,
+     "issue_rate": 0.515
+    },
+    "sv_shoulder_tilt": {
+     "label": "奖杯姿势肩部倾斜",
+     "measured": 6,
+     "issue_rate": 1.0
+    },
+    "sv_toss_arm": {
+     "label": "抛球手上举",
+     "measured": 33,
+     "issue_rate": 0.242
+    },
+    "sv_tuck": {
+     "label": "非持拍手回收",
+     "measured": 33,
+     "issue_rate": 0.091
+    }
+   }
+  },
+  "forehand": {
+   "n_swings": 64,
+   "mean_issues_per_swing": 0.781,
+   "share_with_any_issue": 0.516,
+   "per_checkpoint": {
+    "gs_arm_ext": {
+     "label": "击球时持拍臂伸展（肘角）",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_backswing_depth": {
+     "label": "引拍深度",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_contact_front": {
+     "label": "击球点前后",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_cross_fb": {
+     "label": "随挥越过身体（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.349
+    },
+    "gs_follow_height": {
+     "label": "随挥收拍高度",
+     "measured": 64,
+     "issue_rate": 0.109
+    },
+    "gs_head_still": {
+     "label": "击球时头部稳定",
+     "measured": 64,
+     "issue_rate": 0.016
+    },
+    "gs_hip_turn": {
+     "label": "引拍转髋",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_knee_load": {
+     "label": "屈膝蓄力",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_leg_drive": {
+     "label": "下肢蹬伸",
+     "measured": 64,
+     "issue_rate": 0.0
+    },
+    "gs_low_to_high": {
+     "label": "挥拍路径由低到高",
+     "measured": 64,
+     "issue_rate": 0.156
+    },
+    "gs_nonhit_arm": {
+     "label": "非持拍手前伸",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_rotation": {
+     "label": "击球前转体（肩部打开量）",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_rotation_fb": {
+     "label": "击球前转体（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.0
+    },
+    "gs_shoulder_turn": {
+     "label": "引拍转肩",
+     "measured": 1,
+     "issue_rate": 1.0
+    },
+    "gs_sink": {
+     "label": "重心下降（屈膝）",
+     "measured": 64,
+     "issue_rate": 0.078
+    },
+    "gs_spacing_fb": {
+     "label": "击球点与身体的横向距离（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.0
+    },
+    "gs_trunk_lean": {
+     "label": "击球时躯干前倾",
+     "measured": 1,
+     "issue_rate": 0.0
+    },
+    "gs_turn_fb": {
+     "label": "引拍转肩（正/背面）",
+     "measured": 63,
+     "issue_rate": 0.0
+    }
+   }
+  }
+ }
+}

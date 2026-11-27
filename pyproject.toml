@@ -1,0 +1,26 @@
+[project]
+name = "tennis-coach"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.163.1",
+    "mediapipe>=1.2.3",
+    "numpy>=2.4.6",
+    "onnxruntime>=1.32.0",
+    "opencv-python>=5.0.0.93",
+    "openvino>=2026.4.1",
+    "pytest>=9.2.0",
+    "python-multipart>=0.0.34",
+    "rtmlib>=0.0.16",
+    "scipy>=1.17.1",
+    "uvicorn[standard]>=0.54.0",
+    "yt-dlp>=2026.10.26",
+]
+
+[project.scripts]
+tennis-coach = "tennis_coach:main"
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"

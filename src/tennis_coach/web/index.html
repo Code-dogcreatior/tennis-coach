@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网球动作训练助手</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1><span class="logo">🎾</span>网球动作训练助手 <small>原型 · 本地推理</small></h1>
+  <nav>
+    <button data-tab="analyse" class="active">分析我的视频</button>
+    <button data-tab="library">参考库</button>
+    <button data-tab="about">说明与局限</button>
+  </nav>
+</header>
+
+<main>
+<!-- ============================== analyse ============================== -->
+<section id="tab-analyse" class="tab active">
+  <div class="cols">
+    <div class="card narrow">
+      <h2>上传待分析视频</h2>
+      <form id="form-query">
+        <label>视频文件 <input type="file" name="file" accept="video/*" required></label>
+        <label>持拍手 <select name="hand"><option value="">自动识别</option><option value="right">右手</option><option value="left">左手</option></select></label>
+        <label>播放速度 <select name="time_scale">
+          <option value="1">正常速度（实时）</option><option value="0.5">2× 慢动作</option><option value="0.25">4× 慢动作</option>
+          <option value="0.125">8× 慢动作</option><option value="unknown">慢动作，倍率未知</option></select></label>
+        <label>动作类型（可选） <select name="action"><option value="">自动识别</option></select></label>
+        <label>球员/备注 <input name="player" placeholder="可选"></label>
+        <button type="submit">上传并分析</button>
+        <p class="hint">建议：单人、固定机位、全身入镜、一次完整挥拍；侧面机位效果最好。视频只在本机处理。</p>
+      </form>
+      <h3>我的视频</h3>
+      <ul id="query-list" class="vlist"></ul>
+    </div>
+    <div class="card wide" id="analysis-view">
+      <p class="empty">选择或上传一个视频查看分析结果。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== library ============================== -->
+<section id="tab-library" class="tab">
+  <div class="cols">
+    <div class="card narrow">
+      <h2>上传示范视频（建立参考）</h2>
+      <form id="form-ref">
+        <label>视频文件 <input type="file" name="file" accept="video/*" required></label>
+        <label>动作类型 <select name="action"><option value="">自动识别（建议手动指定）</option></select></label>
+        <label>持拍手 <select name="hand"><option value="">自动识别</option><option value="right">右手</option><option value="left">左手</option></select></label>
+        <label>播放速度 <select name="time_scale">
+          <option value="1">正常速度（实时）</option><option value="0.5">2× 慢动作</option><option value="0.25">4× 慢动作</option>
+          <option value="0.125">8× 慢动作</option><option value="unknown">慢动作，倍率未知</option></select></label>
+        <label>球员 <input name="player" placeholder="如：教练A / 自己"></label>
+        <label>来源 <input name="source" placeholder="自拍 / 教练提供 / URL"></label>
+        <label>许可/授权 <input name="license" placeholder="如：本人拍摄并同意使用"></label>
+        <label>允许商用 <select name="license_commercial"><option value="unknown">未说明</option><option value="yes">是</option><option value="no">否</option></select></label>
+        <label>允许再分发 <select name="redistribution"><option value="unknown">未说明</option><option value="yes">是</option><option value="no">否</option></select></label>
+        <label>审核状态 <select name="review_status"><option value="demo">参考示范（未审核）</option><option value="coach_reviewed">教练已审核</option></select></label>
+        <label>审核教练 <input name="reviewer" placeholder="选择“教练已审核”时必填"></label>
+        <label>机位/拍摄说明 <input name="camera" placeholder="如：侧面 3m，手机 60fps"></label>
+        <button type="submit">上传入库</button>
+      </form>
+      <h3>示范视频</h3>
+      <ul id="ref-video-list" class="vlist"></ul>
+    </div>
+    <div class="card wide">
+      <h2>参考挥拍条目 <small id="ref-count"></small></h2>
+      <p class="hint">每次检测到的完整挥拍是一条参考。未经教练审核的条目一律视为“参考示范”，不代表专业标准；同一动作可以保留多种风格。</p>
+      <div class="tbl"><table id="ref-table"><thead><tr>
+        <th>#</th><th>来源视频</th><th>球员</th><th>动作</th><th>机位</th><th>持拍手</th><th>标签来源</th><th>审核</th><th>风格</th><th>启用</th><th></th>
+      </tr></thead><tbody></tbody></table></div>
+      <div id="ref-preview"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== about ============================== -->
+<section id="tab-about" class="tab">
+  <div class="card prose" id="about"></div>
+</section>
+</main>
+
+<template id="tpl-analysis">
+  <div class="an-head">
+    <h2 class="an-title"></h2>
+    <div class="an-actions">
+      <button class="btn-reanalyse">重新分析</button>
+      <button class="btn-delete danger">删除视频及派生文件</button>
+    </div>
+  </div>
+  <div class="status-line"></div>
+  <div class="an-body">
+    <div class="swing-tabs"></div>
+    <div class="players">
+      <div class="player"><div class="ptitle">你的视频</div><div class="vwrap"><video class="v-user" muted playsinline></video><canvas class="c-user"></canvas></div></div>
+      <div class="player"><div class="ptitle ref-title">参考</div><div class="vwrap"><video class="v-ref" muted playsinline></video><canvas class="c-ref"></canvas></div></div>
+    </div>
+    <div class="controls">
+      <button class="btn-play">▶ 同步播放</button>
+      <label>速度 <select class="sel-rate"><option>0.25</option><option selected>0.5</option><option>1</option></select></label>
+      <label>同步 <select class="sel-sync"><option value="dtw">按 DTW 对齐</option><option value="contact">按估计击球点</option></select></label>
+      <label><input type="checkbox" class="chk-skel" checked> 骨架</label>
+      <label title="把右侧参考（最接近的职业挥拍）的骨架按躯干长缩放、以髋部中心对齐，半透明叠加到你的画面上"><input type="checkbox" class="chk-ghost" checked> 叠加参考骨架</label>
+      <span class="tdisp"></span>
+    </div>
+    <div class="timeline"></div>
+    <div class="panel pro-panel"><h3>与职业动作对比</h3><div class="pro"></div></div>
+    <div class="grid2">
+      <div class="panel"><h3>识别结果</h3><div class="recog"></div></div>
+      <div class="panel"><h3>人工纠错</h3><div class="correct"></div></div>
+    </div>
+    <details class="panel" open><summary>与示范参考组的指标差异</summary><div class="feedback"></div></details>
+    <details class="panel panel-curves"><summary>指标曲线 <small>实线=你，虚线=参考，按 DTW 对齐到你的时间轴</small></summary>
+      <div class="curve-ctrl"></div><canvas class="curves" height="220"></canvas></details>
+    <details class="panel"><summary>指标对比</summary><div class="metrics"></div></details>
+    <details class="panel"><summary>质量检查 <span class="q-badge"></span></summary><div class="quality"></div></details>
+  </div>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>

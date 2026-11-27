@@ -1,0 +1,388 @@
+{
+ "criteria": "pro LOPO false-alarm <= 0.15 and n >= 10 and not (THETIS experienced rate - beginner rate > 0.2)",
+ "n_pro_swings": 174,
+ "pro_players": [
+  "Alex Eala",
+  "Ben Shelton",
+  "Carlos Alcaraz",
+  "Daniil Medvedev",
+  "Dominic Thiem",
+  "Dusan Lajovic",
+  "Holger Rune",
+  "Jannik Sinner",
+  "Novak Djokovic",
+  "Rafael Nadal",
+  "Roger Federer",
+  "serve compilation (Fritz/Rublev/Alcaraz/Djokovic/Sinner/Zverev/Shelton...)"
+ ],
+ "gate": {
+  "backhand_2h:gs_backswing_depth": {
+   "validated": true,
+   "pro_false_alarm": 0.062,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 1.0
+  },
+  "backhand_2h:gs_contact_front": {
+   "validated": true,
+   "pro_false_alarm": 0.062,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 1.0
+  },
+  "backhand_2h:gs_follow_height": {
+   "validated": true,
+   "pro_false_alarm": 0.098,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "backhand_2h:gs_head_still": {
+   "validated": true,
+   "pro_false_alarm": 0.049,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.03,
+   "thetis_experienced_rate": 0.0
+  },
+  "backhand_2h:gs_hip_turn": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 1.0
+  },
+  "backhand_2h:gs_knee_load": {
+   "validated": false,
+   "pro_false_alarm": 0.25,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 0.667
+  },
+  "backhand_2h:gs_leg_drive": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "backhand_2h:gs_low_to_high": {
+   "validated": true,
+   "pro_false_alarm": 0.098,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.03,
+   "thetis_experienced_rate": 0.061
+  },
+  "backhand_2h:gs_rotation": {
+   "validated": true,
+   "pro_false_alarm": 0.062,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 0.0
+  },
+  "backhand_2h:gs_rotation_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.067,
+   "pro_measured": 15,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.03,
+   "thetis_experienced_rate": 0.074
+  },
+  "backhand_2h:gs_shoulder_turn": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 1.0
+  },
+  "backhand_2h:gs_sink": {
+   "validated": false,
+   "pro_false_alarm": 0.024,
+   "pro_measured": 41,
+   "inverted_vs_experience": true,
+   "thetis_beginner_rate": 0.182,
+   "thetis_experienced_rate": 0.455
+  },
+  "backhand_2h:gs_trunk_lean": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": null,
+   "thetis_experienced_rate": 0.333
+  },
+  "backhand_2h:gs_turn_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 15,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.03,
+   "thetis_experienced_rate": 0.037
+  },
+  "forehand:gs_arm_ext": {
+   "validated": false,
+   "pro_false_alarm": 0.188,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 1.0
+  },
+  "forehand:gs_backswing_depth": {
+   "validated": false,
+   "pro_false_alarm": 0.188,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.5,
+   "thetis_experienced_rate": 1.0
+  },
+  "forehand:gs_contact_front": {
+   "validated": true,
+   "pro_false_alarm": 0.062,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_cross_fb": {
+   "validated": false,
+   "pro_false_alarm": 0.073,
+   "pro_measured": 41,
+   "inverted_vs_experience": true,
+   "thetis_beginner_rate": 0.127,
+   "thetis_experienced_rate": 0.349
+  },
+  "forehand:gs_follow_height": {
+   "validated": true,
+   "pro_false_alarm": 0.061,
+   "pro_measured": 66,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.045,
+   "thetis_experienced_rate": 0.109
+  },
+  "forehand:gs_head_still": {
+   "validated": true,
+   "pro_false_alarm": 0.03,
+   "pro_measured": 66,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.016
+  },
+  "forehand:gs_hip_turn": {
+   "validated": true,
+   "pro_false_alarm": 0.125,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.5,
+   "thetis_experienced_rate": 1.0
+  },
+  "forehand:gs_knee_load": {
+   "validated": false,
+   "pro_false_alarm": 0.25,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.5,
+   "thetis_experienced_rate": 1.0
+  },
+  "forehand:gs_leg_drive": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 66,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_low_to_high": {
+   "validated": true,
+   "pro_false_alarm": 0.091,
+   "pro_measured": 66,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.333,
+   "thetis_experienced_rate": 0.156
+  },
+  "forehand:gs_nonhit_arm": {
+   "validated": true,
+   "pro_false_alarm": 0.125,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_rotation": {
+   "validated": true,
+   "pro_false_alarm": 0.125,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_rotation_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.049,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_shoulder_turn": {
+   "validated": true,
+   "pro_false_alarm": 0.125,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.5,
+   "thetis_experienced_rate": 1.0
+  },
+  "forehand:gs_sink": {
+   "validated": true,
+   "pro_false_alarm": 0.03,
+   "pro_measured": 66,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.015,
+   "thetis_experienced_rate": 0.078
+  },
+  "forehand:gs_spacing_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.049,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.032,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_trunk_lean": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 16,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "forehand:gs_turn_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 41,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "serve:sv_arm_ext": {
+   "validated": true,
+   "pro_false_alarm": 0.043,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.212,
+   "thetis_experienced_rate": 0.061
+  },
+  "serve:sv_contact_reach": {
+   "validated": true,
+   "pro_false_alarm": 0.043,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.576,
+   "thetis_experienced_rate": 0.303
+  },
+  "serve:sv_drop": {
+   "validated": false,
+   "pro_false_alarm": 0.217,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.242,
+   "thetis_experienced_rate": 0.182
+  },
+  "serve:sv_leg_drive": {
+   "validated": true,
+   "pro_false_alarm": 0.087,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.636,
+   "thetis_experienced_rate": 0.515
+  },
+  "serve:sv_shoulder_tilt": {
+   "validated": false,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 5,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 1.0,
+   "thetis_experienced_rate": 1.0
+  },
+  "serve:sv_toss_arm": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.636,
+   "thetis_experienced_rate": 0.242
+  },
+  "serve:sv_tuck": {
+   "validated": true,
+   "pro_false_alarm": 0.087,
+   "pro_measured": 23,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.152,
+   "thetis_experienced_rate": 0.091
+  },
+  "backhand_1h:gs_follow_height": {
+   "validated": true,
+   "pro_false_alarm": 0.068,
+   "pro_measured": 44,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.125
+  },
+  "backhand_1h:gs_head_still": {
+   "validated": true,
+   "pro_false_alarm": 0.068,
+   "pro_measured": 44,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.062
+  },
+  "backhand_1h:gs_leg_drive": {
+   "validated": true,
+   "pro_false_alarm": 0.0,
+   "pro_measured": 44,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.0
+  },
+  "backhand_1h:gs_low_to_high": {
+   "validated": true,
+   "pro_false_alarm": 0.091,
+   "pro_measured": 44,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.121,
+   "thetis_experienced_rate": 0.219
+  },
+  "backhand_1h:gs_rotation_fb": {
+   "validated": true,
+   "pro_false_alarm": 0.1,
+   "pro_measured": 10,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.583
+  },
+  "backhand_1h:gs_sink": {
+   "validated": false,
+   "pro_false_alarm": 0.091,
+   "pro_measured": 44,
+   "inverted_vs_experience": true,
+   "thetis_beginner_rate": 0.03,
+   "thetis_experienced_rate": 0.25
+  },
+  "backhand_1h:gs_turn_fb": {
+   "validated": false,
+   "pro_false_alarm": 0.2,
+   "pro_measured": 10,
+   "inverted_vs_experience": false,
+   "thetis_beginner_rate": 0.0,
+   "thetis_experienced_rate": 0.083
+  }
+ }
+}

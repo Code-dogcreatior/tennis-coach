@@ -1,0 +1,23 @@
+player,apparent_hand,score_left,score_right,n_forehand_clips,method
+p1,left,0.939,0.031,9,forehand-consistency on GT forehand clips; spot-checked visually
+p3,left,0.421,-0.188,8,forehand-consistency on GT forehand clips; spot-checked visually
+p5,right,-0.175,0.593,9,forehand-consistency on GT forehand clips; spot-checked visually
+p7,right,-0.577,1.794,9,forehand-consistency on GT forehand clips; spot-checked visually
+p9,left,0.424,-0.441,8,forehand-consistency on GT forehand clips; spot-checked visually
+p11,left,1.185,-0.551,6,forehand-consistency on GT forehand clips; spot-checked visually
+p13,left,0.906,-0.37,6,forehand-consistency on GT forehand clips; spot-checked visually
+p15,left,0.983,-0.598,9,forehand-consistency on GT forehand clips; spot-checked visually
+p17,left,1.199,-0.466,6,forehand-consistency on GT forehand clips; spot-checked visually
+p19,right,0.092,1.549,8,forehand-consistency on GT forehand clips; spot-checked visually
+p21,left,0.657,-0.979,6,forehand-consistency on GT forehand clips; spot-checked visually
+p33,left,0.564,-0.795,9,forehand-consistency on GT forehand clips; spot-checked visually
+p35,left,0.997,-0.604,9,forehand-consistency on GT forehand clips; spot-checked visually
+p37,left,0.768,-0.569,5,forehand-consistency on GT forehand clips; spot-checked visually
+p39,left,1.529,-0.766,8,forehand-consistency on GT forehand clips; spot-checked visually
+p41,left,1.324,-0.609,9,forehand-consistency on GT forehand clips; spot-checked visually
+p43,left,0.974,-1.178,9,forehand-consistency on GT forehand clips; spot-checked visually
+p45,left,0.664,-0.527,9,forehand-consistency on GT forehand clips; spot-checked visually
+p47,left,1.124,-0.936,8,forehand-consistency on GT forehand clips; spot-checked visually
+p49,left,0.331,-0.327,7,forehand-consistency on GT forehand clips; spot-checked visually
+p51,left,0.612,-0.083,7,forehand-consistency on GT forehand clips; spot-checked visually
+p53,left,1.222,-0.366,6,forehand-consistency on GT forehand clips; spot-checked visually

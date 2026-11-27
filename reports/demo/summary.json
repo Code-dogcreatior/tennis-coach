@@ -1,0 +1,1867 @@
+{
+ "n_reference_videos": 48,
+ "n_reference_swings": 378,
+ "reference_processing_s": 37.1,
+ "query_processing_s": 25.4,
+ "queries": [
+  {
+   "video_id": "3448697c14d8",
+   "file": "Rw3ZDfTTD9M.mp4",
+   "ground_truth": "forehand (left-handed, multiple)",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 6,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.37 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     },
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.20 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     },
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 4.54 倍、轨迹长度为 2.91 倍",
+      "two_handed_like": false
+     },
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.41 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     },
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.15 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     },
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.41 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "good",
+   "quality_issues": [],
+   "primary_swing": {
+    "action": "forehand",
+    "confidence": 0.98,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.11 躯干长；此前非持拍手腕最高比鼻子高 -0.36",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.23 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 1.07 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.10、击球后横向位置 -0.55 躯干长（正=持拍侧）→ 正手得分 +0.38",
+     "引拍终点持拍手腕在肩线上的位置 +4.17（+0.5=持拍肩，-0.5=非持拍肩）→ 正手侧",
+     "击球后两手靠近，但击球前非持拍手离开球拍 → 视为正手（随挥时非持拍手接拍）",
+     "最近参考投票 {'forehand': 3}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.7
+     ],
+     [
+      "引拍/蓄力",
+      0.7,
+      0.97
+     ],
+     [
+      "加速",
+      0.97,
+      1.13
+     ],
+     [
+      "随挥",
+      1.13,
+      1.2
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「正手」+ 机位「正面」筛选出 8 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 0.90，差异最大的阶段：引拍",
+    "top_refs": [
+     [
+      1073,
+      0.8998
+     ],
+     [
+      1081,
+      1.1785
+     ],
+     [
+      1082,
+      1.2088
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 正面 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 9 名球员的 67 次「正手」对比（其中与你同为正面/斜前方机位的 38 次）。可测量的检查点 5 项：5 项在职业范围内，0 项明显偏离。",
+     "nearest": "Novak Djokovic",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "forehand",
+     0.98
+    ],
+    [
+     1,
+     "backhand_2h",
+     0.98
+    ],
+    [
+     2,
+     "forehand",
+     0.5
+    ],
+    [
+     3,
+     "forehand",
+     0.98
+    ],
+    [
+     4,
+     "backhand_2h",
+     0.98
+    ],
+    [
+     5,
+     "forehand",
+     0.79
+    ]
+   ]
+  },
+  {
+   "video_id": "f71a5015c5e1",
+   "file": "p7_fvolley_s1.avi",
+   "ground_truth": "forehand_volley",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": "right",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 1.00 / 左 0.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "right",
+      "confidence": 1.0,
+      "evidence": "右手腕峰值速度为另一侧 13.03 倍、轨迹长度为 6.88 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "unknown",
+    "confidence": 0.4,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.92 躯干长；此前非持拍手腕最高比鼻子高 -1.03",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.40 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 1.75 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.74、击球后横向位置 -0.12 躯干长（正=持拍侧）→ 正手得分 +0.80",
+     "引拍终点持拍手腕在肩线上的位置 +1.54（+0.5=持拍肩，-0.5=非持拍肩）→ 正手侧",
+     "最近参考投票 {'backhand_1h': 1, 'forehand': 2} 与规则判断（正手）不一致"
+    ],
+    "view": "正面",
+    "phases": [],
+    "match_status": "action_unknown",
+    "match_message": "未识别为目标动作，不做匹配",
+    "top_refs": [],
+    "feedback": [
+     {
+      "title": "未进行参考对比",
+      "observation": "未识别为目标动作，不做匹配",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": null,
+     "message": null,
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "unknown",
+     0.4
+    ]
+   ]
+  },
+  {
+   "video_id": "e02c9c49ed3a",
+   "file": "p7_smash_s1.avi",
+   "ground_truth": "smash",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": "right",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 1.00 / 左 0.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "right",
+      "confidence": 1.0,
+      "evidence": "右手腕峰值速度为另一侧 12.89 倍、轨迹长度为 5.96 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.5,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.59 躯干长；此前非持拍手腕最高比鼻子高 -1.12",
+     "高点击球但未见抛球动作（可能为高压球），不属于首版四类",
+     "规则无法判断，最近参考投票 {'serve': 3}"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.22
+     ],
+     [
+      "抛球/蓄力",
+      0.22,
+      1.5
+     ],
+     [
+      "持拍手下落",
+      1.5,
+      1.5
+     ],
+     [
+      "加速",
+      1.5,
+      1.72
+     ],
+     [
+      "随挥",
+      1.72,
+      1.94
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「正面」筛选出 3 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.34，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1080,
+      1.3441
+     ],
+     [
+      1068,
+      1.71
+     ],
+     [
+      1065,
+      1.9838
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "抛球手最高点低于参考",
+      "observation": "抛球手最高高度：你 0.31躯干长，参考组均值 1.86躯干长（范围 1.50–2.09，n=3），差 -1.55躯干长。",
+      "practice": "抛球手臂充分上伸，指向球的方向，保持到奖杯姿势。",
+      "confidence": "中"
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为正面/斜前方机位的 59 次）。可测量的检查点 7 项：3 项在职业范围内，3 项明显偏离，另有 1 项偏离出现在尚未通过验证的检查点上（仅作提示）。",
+     "nearest": "Holger Rune",
+     "issues": [
+      "抛球手没有充分上举（你 -0.62，职业 0.95–1.21）",
+      "奖杯姿势时肩膀没有倾斜（你 -0.24，职业 0.26–0.57）",
+      "发球击球点偏低（你 0.59，职业 0.75–1.28）"
+     ],
+     "tentative": [
+      "持拍手下落不充分"
+     ]
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.5
+    ]
+   ]
+  },
+  {
+   "video_id": "af559890a511",
+   "file": "p7_serflat_s1.avi",
+   "ground_truth": "flat_service",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": "right",
+    "confidence": 0.8,
+    "evidence": "1 次单手挥拍投票：右 0.80 / 左 0.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "right",
+      "confidence": 0.8,
+      "evidence": "发球模式：左手先上举（抛球），右手腕随后在头顶更高处到达最高点",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "斜前方",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.6,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.35 躯干长；此前非持拍手腕最高比鼻子高 +0.25",
+     "高点击球且击球前非持拍手上举（抛球）→ 发球",
+     "抛球前非持拍手降到髋部以下（-0.24 躯干长，托球准备）→ 符合发球；高压仍不能完全排除",
+     "最近参考投票 {'serve': 3}，与规则一致"
+    ],
+    "view": "斜前方",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.33
+     ],
+     [
+      "抛球/蓄力",
+      0.33,
+      0.94
+     ],
+     [
+      "持拍手下落",
+      0.94,
+      0.94
+     ],
+     [
+      "加速",
+      0.94,
+      2.0
+     ],
+     [
+      "随挥",
+      2.0,
+      2.28
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「斜前方」筛选出 3 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.23，差异最大的阶段：抛球/蓄力",
+    "top_refs": [
+     [
+      1065,
+      1.2341
+     ],
+     [
+      1080,
+      1.3172
+     ],
+     [
+      1068,
+      1.8383
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 斜前方 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为正面/斜前方机位的 59 次）。可测量的检查点 7 项：4 项在职业范围内，3 项明显偏离。",
+     "nearest": "Holger Rune",
+     "issues": [
+      "发球击球点偏低（你 0.35，职业 0.75–1.28）",
+      "抛球手没有充分上举（你 0.68，职业 0.95–1.21）",
+      "奖杯姿势时肩膀没有倾斜（你 0.06，职业 0.29–0.58）"
+     ],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.6
+    ]
+   ]
+  },
+  {
+   "video_id": "1d51b4fdae5a",
+   "file": "p7_backhand2h_s1.avi",
+   "ground_truth": "backhand2hands",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 2,
+   "hand": {
+    "hand": "right",
+    "estimated": null,
+    "confidence": 0.0,
+    "evidence": "所有挥拍都无法判断持拍手（可能均为双手击球），请人工指定",
+    "source": "default_right_unverified",
+    "per_swing": [
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.10 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     },
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.21 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 19 fps 偏低，击球附近时刻误差约 ±53 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "backhand_2h",
+    "confidence": 0.9083333333333333,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.62 躯干长；此前非持拍手腕最高比鼻子高 -0.60",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.13 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.09 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 -0.73、击球后横向位置 +0.52 躯干长（正=持拍侧）→ 正手得分 -0.99",
+     "引拍终点持拍手腕在肩线上的位置 -1.53（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "反手侧挥拍且两手在击球前后都握在一起 → 双手反手",
+     "最近参考投票 {'backhand_2h': 2, 'backhand_1h': 1}，与规则一致"
+    ],
+    "view": "斜前方",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.63
+     ],
+     [
+      "引拍/蓄力",
+      0.63,
+      0.95
+     ],
+     [
+      "加速",
+      0.95,
+      1.68
+     ],
+     [
+      "随挥",
+      1.68,
+      2.11
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「双手反手」+ 机位「斜前方」筛选出 4 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 0.68，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1079,
+      0.6819
+     ],
+     [
+      1064,
+      0.9768
+     ],
+     [
+      1074,
+      1.2908
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 斜前方 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 7 名球员的 44 次「双手反手」对比（其中与你同为正面/斜前方机位的 22 次）。可测量的检查点 7 项：4 项在职业范围内，0 项明显偏离。",
+     "nearest": "Holger Rune",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "backhand_2h",
+     0.91
+    ],
+    [
+     1,
+     "unknown",
+     0.4
+    ]
+   ]
+  },
+  {
+   "video_id": "fd9065668459",
+   "file": "p7_backhand_s1.avi",
+   "ground_truth": "backhand",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": "right",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 1.00 / 左 0.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "right",
+      "confidence": 1.0,
+      "evidence": "右手腕峰值速度为另一侧 2.90 倍、轨迹长度为 2.92 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 17 fps 偏低，击球附近时刻误差约 ±59 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "backhand_1h",
+    "confidence": 0.9083333333333333,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.55 躯干长；此前非持拍手腕最高比鼻子高 -0.53",
+     "击球后 0.1–0.3 s 两手腕距离中位数 1.34 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.30 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 -0.70、击球后横向位置 +0.99 躯干长（正=持拍侧）→ 正手得分 -1.19",
+     "引拍终点持拍手腕在肩线上的位置 -1.28（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "最近参考投票 {'backhand_1h': 2, 'backhand_2h': 1}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      1.24
+     ],
+     [
+      "引拍/蓄力",
+      1.24,
+      1.47
+     ],
+     [
+      "加速",
+      1.47,
+      2.24
+     ],
+     [
+      "随挥",
+      2.24,
+      2.76
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「单手反手」+ 机位「正面」筛选出 4 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 0.86，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1078,
+      0.8628
+     ],
+     [
+      1066,
+      1.1426
+     ],
+     [
+      1070,
+      1.4225
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 正面 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 3 名球员的 41 次「单手反手」对比（其中与你同为正面/斜前方机位的 19 次）。可测量的检查点 5 项：2 项在职业范围内，0 项明显偏离。",
+     "nearest": "Dominic Thiem",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "backhand_1h",
+     0.91
+    ]
+   ]
+  },
+  {
+   "video_id": "c63716bef84f",
+   "file": "p7_foreflat_s1.avi",
+   "ground_truth": "forehand_flat",
+   "gt_apparent_hand": "right",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": "right",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 1.00 / 左 0.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "right",
+      "confidence": 1.0,
+      "evidence": "右手腕峰值速度为另一侧 1.96 倍、轨迹长度为 2.28 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "forehand",
+    "confidence": 0.98,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.81 躯干长；此前非持拍手腕最高比鼻子高 -0.61",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.47 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 1.74 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.60、击球后横向位置 -0.41 躯干长（正=持拍侧）→ 正手得分 +0.80",
+     "引拍终点持拍手腕在肩线上的位置 +1.47（+0.5=持拍肩，-0.5=非持拍肩）→ 正手侧",
+     "最近参考投票 {'forehand': 3}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.06,
+      1.94
+     ],
+     [
+      "引拍/蓄力",
+      1.94,
+      2.39
+     ],
+     [
+      "加速",
+      2.39,
+      2.56
+     ],
+     [
+      "随挥",
+      2.56,
+      2.83
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「正手」+ 机位「正面」筛选出 8 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.03，差异最大的阶段：引拍",
+    "top_refs": [
+     [
+      1073,
+      1.0299
+     ],
+     [
+      1062,
+      1.2076
+     ],
+     [
+      1081,
+      1.2642
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 正面 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 9 名球员的 67 次「正手」对比（其中与你同为正面/斜前方机位的 38 次）。可测量的检查点 9 项：5 项在职业范围内，0 项明显偏离。",
+     "nearest": "Novak Djokovic",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "forehand",
+     0.98
+    ]
+   ]
+  },
+  {
+   "video_id": "90768e2389dc",
+   "file": "p35_fvolley_s1.avi",
+   "ground_truth": "forehand_volley",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 2.95 倍、轨迹长度为 2.18 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "unknown",
+    "confidence": 0.4,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.69 躯干长；此前非持拍手腕最高比鼻子高 -0.99",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.52 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 1.75 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.13、击球后横向位置 +0.25 躯干长（正=持拍侧）→ 正手得分 +0.01",
+     "引拍终点持拍手腕在肩线上的位置 +0.27（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "与机位规则不一致；斜向/侧面机位下横向位置受透视影响，以肩线位置为准",
+     "最近参考投票 {'forehand': 1, 'backhand_1h': 2} 与规则判断（单手反手）不一致"
+    ],
+    "view": "正面",
+    "phases": [],
+    "match_status": "action_unknown",
+    "match_message": "未识别为目标动作，不做匹配",
+    "top_refs": [],
+    "feedback": [
+     {
+      "title": "未进行参考对比",
+      "observation": "未识别为目标动作，不做匹配",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": null,
+     "message": null,
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "unknown",
+     0.4
+    ]
+   ]
+  },
+  {
+   "video_id": "709c37a924ce",
+   "file": "p35_smash_s1.avi",
+   "ground_truth": "smash",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 0.8,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 0.80",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 0.8,
+      "evidence": "发球模式：右手先上举（抛球），左手腕随后在头顶更高处到达最高点",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "斜前方",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.35,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.78 躯干长；此前非持拍手腕最高比鼻子高 +0.88",
+     "高点击球且击球前非持拍手上举（抛球）→ 发球",
+     "抛球前非持拍手始终没有降到髋部以下（最低 +0.06 躯干长；发球通常先在腰部以下托球）→ 更像高压，按发球分析但请自行确认",
+     "最近参考投票 {'serve': 3}，与规则一致"
+    ],
+    "view": "斜前方",
+    "phases": [
+     [
+      "准备",
+      0.17,
+      2.22
+     ],
+     [
+      "抛球/蓄力",
+      2.22,
+      2.39
+     ],
+     [
+      "持拍手下落",
+      2.39,
+      2.44
+     ],
+     [
+      "加速",
+      2.44,
+      2.56
+     ],
+     [
+      "随挥",
+      2.56,
+      3.44
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「斜前方」筛选出 3 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 2.13，差异最大的阶段：加速",
+    "top_refs": [
+     [
+      1068,
+      2.127
+     ],
+     [
+      1080,
+      2.1868
+     ],
+     [
+      1065,
+      2.2216
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 斜前方 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为正面/斜前方机位的 59 次）。可测量的检查点 7 项：2 项在职业范围内，2 项明显偏离，另有 2 项偏离出现在尚未通过验证的检查点上（仅作提示）。",
+     "nearest": "Carlos Alcaraz",
+     "issues": [
+      "奖杯姿势时肩膀没有倾斜（你 0.06，职业 0.32–0.58）",
+      "击球时抛球手没有回收（你 1.16，职业 -0.63–0.07）"
+     ],
+     "tentative": [
+      "发球时向上蹬伸不足",
+      "持拍手下落不充分"
+     ]
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.35
+    ]
+   ]
+  },
+  {
+   "video_id": "9968e456fa5c",
+   "file": "p35_serflat_s1.avi",
+   "ground_truth": "flat_service",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 0.8,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 0.80",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 0.8,
+      "evidence": "发球模式：右手先上举（抛球），左手腕随后在头顶更高处到达最高点",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "侧面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.42,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.94 躯干长；此前非持拍手腕最高比鼻子高 +0.64",
+     "高点击球且击球前非持拍手上举（抛球）→ 发球",
+     "抛球前非持拍手降到髋部以下（-0.17 躯干长，托球准备）→ 符合发球；高压仍不能完全排除",
+     "与最近参考的 DTW 距离 1.61 超过阈值 1.60，与库内动作都不相似"
+    ],
+    "view": "侧面（非持拍手一侧）",
+    "phases": [
+     [
+      "准备",
+      1.5,
+      2.11
+     ],
+     [
+      "抛球/蓄力",
+      2.11,
+      2.94
+     ],
+     [
+      "持拍手下落",
+      2.94,
+      3.56
+     ],
+     [
+      "加速",
+      3.56,
+      3.89
+     ],
+     [
+      "随挥",
+      3.89,
+      4.22
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「侧面（非持拍手一侧）」筛选出 1 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.16，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1075,
+      1.1577
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "手腕相对峰值速度低于参考（相对强度，非真实速度）",
+      "observation": "手腕相对峰值速度：你 1.46躯干长/s，参考组均值 4.01躯干长/s（范围 4.01–4.01，n=1），差 -2.55躯干长/s。",
+      "practice": "动作稳定后再逐步加速；先保证结构，再做加速挥拍练习。",
+      "confidence": "低"
+     },
+     {
+      "title": "击球附近肘部弯曲（投影角）比参考更多",
+      "observation": "击球附近肘角（投影）：你 143.95°，参考组均值 166.37°（范围 166.37–166.37，n=1），差 -22.42°。",
+      "practice": "对照参考的手臂结构，影子挥拍时在击球位置停顿检查肘部角度。",
+      "confidence": "低"
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为侧面机位的 32 次）。可测量的检查点 7 项：6 项在职业范围内，0 项明显偏离。",
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.42
+    ]
+   ]
+  },
+  {
+   "video_id": "3ed44614d9cf",
+   "file": "p35_backhand2h_s1.avi",
+   "ground_truth": "backhand2hands",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": null,
+    "confidence": 0.0,
+    "evidence": "所有挥拍都无法判断持拍手（可能均为双手击球），请人工指定",
+    "source": "default_right_unverified",
+    "per_swing": [
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.20 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "unknown",
+    "confidence": 0.4,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.19 躯干长；此前非持拍手腕最高比鼻子高 -0.56",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.29 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.15 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.41、击球后横向位置 +0.12 躯干长（正=持拍侧）→ 正手得分 +0.35",
+     "引拍终点持拍手腕在肩线上的位置 +0.38（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "与机位规则不一致；正/背面机位下以机位规则为准，降低置信度",
+     "反手侧挥拍且两手在击球前后都握在一起 → 双手反手",
+     "最近参考投票 {'forehand': 3} 与规则判断（双手反手）不一致"
+    ],
+    "view": "正面",
+    "phases": [],
+    "match_status": "action_unknown",
+    "match_message": "未识别为目标动作，不做匹配",
+    "top_refs": [],
+    "feedback": [
+     {
+      "title": "未进行参考对比",
+      "observation": "未识别为目标动作，不做匹配",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": null,
+     "message": null,
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "unknown",
+     0.4
+    ]
+   ]
+  },
+  {
+   "video_id": "c7878dd4f66a",
+   "file": "p35_backhand_s1.avi",
+   "ground_truth": "backhand",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 0.568,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 0.57",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 0.568,
+      "evidence": "左手腕峰值速度为另一侧 1.57 倍、轨迹长度为 1.34 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "backhand_2h",
+    "confidence": 0.98,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.02 躯干长；此前非持拍手腕最高比鼻子高 -0.16",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.26 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.50 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 -1.06、击球后横向位置 +0.20 躯干长（正=持拍侧）→ 正手得分 -1.16",
+     "反手侧挥拍且两手在击球前后都握在一起 → 双手反手",
+     "最近参考投票 {'backhand_2h': 3}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      1.67
+     ],
+     [
+      "引拍/蓄力",
+      1.67,
+      1.94
+     ],
+     [
+      "加速",
+      1.94,
+      2.22
+     ],
+     [
+      "随挥",
+      2.22,
+      2.78
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「双手反手」+ 机位「正面」筛选出 4 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.44，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1074,
+      1.4403
+     ],
+     [
+      1071,
+      1.4587
+     ],
+     [
+      1064,
+      1.661
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "引拍幅度大于参考",
+      "observation": "引拍幅度：你 1.65躯干长，参考组均值 1.00躯干长（范围 0.89–1.25，n=4），差 +0.65躯干长。",
+      "practice": "若时间来不及或击球不稳，可尝试紧凑引拍，靠转体而不是手臂往后拉。",
+      "confidence": "中"
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 7 名球员的 44 次「双手反手」对比（其中与你同为正面/斜前方机位的 22 次）。可测量的检查点 7 项：2 项在职业范围内，1 项明显偏离。",
+     "nearest": "Holger Rune",
+     "issues": [
+      "击球时身体没有转过来，像是手臂单独挥拍（你 -0.17，职业 -0.02–0.64）"
+     ],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "backhand_2h",
+     0.98
+    ]
+   ]
+  },
+  {
+   "video_id": "b3431eb481ba",
+   "file": "p35_foreflat_s1.avi",
+   "ground_truth": "forehand_flat",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 2.05 倍、轨迹长度为 1.72 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "forehand",
+    "confidence": 0.907659056423459,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.29 躯干长；此前非持拍手腕最高比鼻子高 -0.59",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.49 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 1.08 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 +0.33、击球后横向位置 +0.40 躯干长（正=持拍侧）→ 正手得分 +0.12",
+     "引拍终点持拍手腕在肩线上的位置 +1.86（+0.5=持拍肩，-0.5=非持拍肩）→ 正手侧",
+     "最近参考投票 {'forehand': 3}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      1.0
+     ],
+     [
+      "引拍/蓄力",
+      1.0,
+      1.22
+     ],
+     [
+      "加速",
+      1.22,
+      1.39
+     ],
+     [
+      "随挥",
+      1.39,
+      1.61
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「正手」+ 机位「正面」筛选出 8 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.11，差异最大的阶段：加速",
+    "top_refs": [
+     [
+      1069,
+      1.1118
+     ],
+     [
+      1082,
+      1.389
+     ],
+     [
+      1073,
+      1.4322
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 正面 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 9 名球员的 67 次「正手」对比（其中与你同为正面/斜前方机位的 38 次）。可测量的检查点 9 项：3 项在职业范围内，0 项明显偏离，另有 1 项偏离出现在尚未通过验证的检查点上（仅作提示）。",
+     "nearest": "Novak Djokovic",
+     "issues": [],
+     "tentative": [
+      "随挥没有越过身体"
+     ]
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "forehand",
+     0.91
+    ]
+   ]
+  },
+  {
+   "video_id": "d0fb0e32dcc0",
+   "file": "p3_fvolley_s1.avi",
+   "ground_truth": "forehand_volley",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": null,
+    "confidence": 0.0,
+    "evidence": "所有挥拍都无法判断持拍手（可能均为双手击球），请人工指定",
+    "source": "default_right_unverified",
+    "per_swing": [
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.16 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     }
+    ]
+   },
+   "view_overall": "斜前方",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "unknown",
+    "confidence": 0.4,
+    "evidence": [
+     "持拍手腕相对速度峰值 1.3 低于挥拍阈值 3.0，判定为非挥拍动作",
+     "最近参考投票 {'backhand_1h': 1, 'forehand': 2} 与规则判断（未知/非目标动作）不一致"
+    ],
+    "view": "斜前方",
+    "phases": [],
+    "match_status": "action_unknown",
+    "match_message": "未识别为目标动作，不做匹配",
+    "top_refs": [],
+    "feedback": [
+     {
+      "title": "未进行参考对比",
+      "observation": "未识别为目标动作，不做匹配",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": null,
+     "message": null,
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "unknown",
+     0.4
+    ]
+   ]
+  },
+  {
+   "video_id": "4056cd5de258",
+   "file": "p3_smash_s1.avi",
+   "ground_truth": "smash",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 4.92 倍、轨迹长度为 3.10 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "斜前方",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.5,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.75 躯干长；此前非持拍手腕最高比鼻子高 -0.10",
+     "高点击球但未见抛球动作（可能为高压球），不属于首版四类",
+     "规则无法判断，最近参考投票 {'serve': 3}"
+    ],
+    "view": "斜前方",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.72
+     ],
+     [
+      "抛球/蓄力",
+      0.72,
+      1.39
+     ],
+     [
+      "持拍手下落",
+      1.39,
+      1.39
+     ],
+     [
+      "加速",
+      1.39,
+      2.06
+     ],
+     [
+      "随挥",
+      2.06,
+      2.56
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「斜前方」筛选出 3 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.23，差异最大的阶段：抛球/蓄力",
+    "top_refs": [
+     [
+      1065,
+      1.2253
+     ],
+     [
+      1080,
+      1.3968
+     ],
+     [
+      1068,
+      1.5545
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 斜前方 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为正面/斜前方机位的 59 次）。可测量的检查点 7 项：3 项在职业范围内，2 项明显偏离，另有 1 项偏离出现在尚未通过验证的检查点上（仅作提示）。",
+     "nearest": "Carlos Alcaraz",
+     "issues": [
+      "抛球手没有充分上举（你 0.23，职业 0.95–1.21）",
+      "奖杯姿势时肩膀没有倾斜（你 0.10，职业 0.32–0.58）"
+     ],
+     "tentative": [
+      "发球时向上蹬伸不足"
+     ]
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.5
+    ]
+   ]
+  },
+  {
+   "video_id": "14d05a009912",
+   "file": "p3_serflat_s1.avi",
+   "ground_truth": "flat_service",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 0.8,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 0.80",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 0.8,
+      "evidence": "发球模式：右手先上举（抛球），左手腕随后在头顶更高处到达最高点",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "斜前方",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 17 fps 偏低，击球附近时刻误差约 ±59 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "serve",
+    "confidence": 0.6,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 +0.60 躯干长；此前非持拍手腕最高比鼻子高 +0.92",
+     "高点击球且击球前非持拍手上举（抛球）→ 发球",
+     "抛球前非持拍手降到髋部以下（-0.10 躯干长，托球准备）→ 符合发球；高压仍不能完全排除",
+     "最近参考投票 {'serve': 3}，与规则一致"
+    ],
+    "view": "斜前方",
+    "phases": [
+     [
+      "准备",
+      0.76,
+      1.59
+     ],
+     [
+      "抛球/蓄力",
+      1.59,
+      1.59
+     ],
+     [
+      "持拍手下落",
+      1.59,
+      2.35
+     ],
+     [
+      "加速",
+      2.35,
+      3.06
+     ],
+     [
+      "随挥",
+      3.06,
+      3.41
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「发球」+ 机位「斜前方」筛选出 3 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 1.21，差异最大的阶段：加速",
+    "top_refs": [
+     [
+      1065,
+      1.2112
+     ],
+     [
+      1080,
+      1.7262
+     ],
+     [
+      1068,
+      2.1744
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "未发现超出参考范围的可靠差异",
+      "observation": "在 斜前方 机位下可用的指标都处于参考组范围内（或差异小于容差）。这不代表动作没有问题，只说明从当前 2D 视频和参考库中找不到可靠证据。",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 10 名球员的 198 次「发球」对比（其中与你同为正面/斜前方机位的 59 次）。可测量的检查点 7 项：2 项在职业范围内，1 项明显偏离，另有 1 项偏离出现在尚未通过验证的检查点上（仅作提示）。",
+     "nearest": "Carlos Alcaraz",
+     "issues": [
+      "奖杯姿势时肩膀没有倾斜（你 0.10，职业 0.33–0.58）"
+     ],
+     "tentative": [
+      "发球时向上蹬伸不足"
+     ]
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "serve",
+     0.6
+    ]
+   ]
+  },
+  {
+   "video_id": "3ea5116501d3",
+   "file": "p3_backhand2h_s1.avi",
+   "ground_truth": "backhand2hands",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 1.71 倍、轨迹长度为 1.66 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "backhand_1h",
+    "confidence": 0.9083333333333333,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.39 躯干长；此前非持拍手腕最高比鼻子高 -0.62",
+     "击球后 0.1–0.3 s 两手腕距离中位数 0.99 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.55 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 -0.61、击球后横向位置 +1.42 躯干长（正=持拍侧）→ 正手得分 -1.32",
+     "引拍终点持拍手腕在肩线上的位置 -1.05（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "最近参考投票 {'backhand_1h': 2, 'backhand_2h': 1}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.22,
+      0.78
+     ],
+     [
+      "引拍/蓄力",
+      0.78,
+      1.89
+     ],
+     [
+      "加速",
+      1.89,
+      2.72
+     ],
+     [
+      "随挥",
+      2.72,
+      3.17
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「单手反手」+ 机位「正面」筛选出 4 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 0.79，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1066,
+      0.7937
+     ],
+     [
+      1078,
+      0.8646
+     ],
+     [
+      1070,
+      1.1911
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "引拍阶段用时比参考更长",
+      "observation": "引拍时长：你 1.11s，参考组均值 0.31s（范围 0.17–0.56，n=4），差 +0.80s。",
+      "practice": "练习单元步+提前转体：喂球时听到对方击球就开始引拍，用节拍器或口令把引拍时间缩短到与参考相近。",
+      "confidence": "中"
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 3 名球员的 41 次「单手反手」对比（其中与你同为正面/斜前方机位的 19 次）。可测量的检查点 5 项：4 项在职业范围内，0 项明显偏离。",
+     "nearest": "Dominic Thiem",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "backhand_1h",
+     0.91
+    ]
+   ]
+  },
+  {
+   "video_id": "5cc03caa475a",
+   "file": "p3_backhand_s1.avi",
+   "ground_truth": "backhand",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "left",
+    "estimated": "left",
+    "confidence": 1.0,
+    "evidence": "1 次单手挥拍投票：右 0.00 / 左 1.00",
+    "source": "estimated",
+    "per_swing": [
+     {
+      "hand": "left",
+      "confidence": 1.0,
+      "evidence": "左手腕峰值速度为另一侧 3.97 倍、轨迹长度为 4.07 倍",
+      "two_handed_like": false
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "backhand_1h",
+    "confidence": 0.98,
+    "evidence": [
+     "峰值前持拍手腕最高比鼻子高 -0.64 躯干长；此前非持拍手腕最高比鼻子高 -0.59",
+     "击球后 0.1–0.3 s 两手腕距离中位数 1.85 躯干长（双手 < 0.4）",
+     "击球前 0.2–0.04 s 两手腕距离中位数 0.76 躯干长",
+     "击球前持拍手腕最靠非持拍侧的横向位置 -0.60、击球后横向位置 +1.25 躯干长（正=持拍侧）→ 正手得分 -1.23",
+     "引拍终点持拍手腕在肩线上的位置 -0.69（+0.5=持拍肩，-0.5=非持拍肩）→ 反手侧",
+     "最近参考投票 {'backhand_1h': 3}，与规则一致"
+    ],
+    "view": "正面",
+    "phases": [
+     [
+      "准备",
+      0.0,
+      0.61
+     ],
+     [
+      "引拍/蓄力",
+      0.61,
+      1.78
+     ],
+     [
+      "加速",
+      1.78,
+      2.44
+     ],
+     [
+      "随挥",
+      2.44,
+      2.94
+     ]
+    ],
+    "match_status": "ok",
+    "match_message": "按动作类型「单手反手」+ 机位「正面」筛选出 4 条参考；以检测到的阶段事件为锚点逐阶段做 DTW（特征：持拍腕/肘、非持拍腕、双肩相对髋部位置，肘角、膝角、躯干倾角）。最接近的参考 DTW 平均距离 0.60，差异最大的阶段：随挥",
+    "top_refs": [
+     [
+      1078,
+      0.6004
+     ],
+     [
+      1066,
+      0.6844
+     ],
+     [
+      1070,
+      0.8996
+     ]
+    ],
+    "feedback": [
+     {
+      "title": "引拍阶段用时比参考更长",
+      "observation": "引拍时长：你 1.17s，参考组均值 0.31s（范围 0.17–0.56，n=4），差 +0.85s。",
+      "practice": "练习单元步+提前转体：喂球时听到对方击球就开始引拍，用节拍器或口令把引拍时间缩短到与参考相近。",
+      "confidence": "中"
+     },
+     {
+      "title": "引拍/加速时长比高于参考，节奏偏“慢引拍+急加速”",
+      "observation": "引拍/加速 时长比：你 1.75，参考组均值 0.52（范围 0.17–1.00，n=4），差 +1.23。",
+      "practice": "用口令“转-挥”练节奏，让引拍与加速的比例接近参考。",
+      "confidence": "中"
+     }
+    ],
+    "pro": {
+     "status": "ok",
+     "message": "与职业参考库中 3 名球员的 41 次「单手反手」对比（其中与你同为正面/斜前方机位的 19 次）。可测量的检查点 5 项：4 项在职业范围内，0 项明显偏离。",
+     "nearest": "Dominic Thiem",
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "backhand_1h",
+     0.98
+    ]
+   ]
+  },
+  {
+   "video_id": "5b68ad7c3919",
+   "file": "p3_foreflat_s1.avi",
+   "ground_truth": "forehand_flat",
+   "gt_apparent_hand": "left",
+   "pose_ms_per_frame": null,
+   "n_swings": 1,
+   "hand": {
+    "hand": "right",
+    "estimated": null,
+    "confidence": 0.0,
+    "evidence": "所有挥拍都无法判断持拍手（可能均为双手击球），请人工指定",
+    "source": "default_right_unverified",
+    "per_swing": [
+     {
+      "hand": null,
+      "confidence": 0.2,
+      "evidence": "两手腕在加速段距离很近（中位 0.22 躯干长），疑似双手击球，无法从手腕判断持拍手",
+      "two_handed_like": true
+     }
+    ]
+   },
+   "view_overall": "正面",
+   "quality": "warn",
+   "quality_issues": [
+    "帧率 18 fps 偏低，击球附近时刻误差约 ±56 ms，建议 60 fps 以上。"
+   ],
+   "primary_swing": {
+    "action": "unknown",
+    "confidence": 0.4,
+    "evidence": [
+     "持拍手腕相对速度峰值 2.0 低于挥拍阈值 3.0，判定为非挥拍动作",
+     "最近参考投票 {'backhand_2h': 1, 'backhand_1h': 1, 'forehand': 1} 与规则判断（未知/非目标动作）不一致"
+    ],
+    "view": "正面",
+    "phases": [],
+    "match_status": "action_unknown",
+    "match_message": "未识别为目标动作，不做匹配",
+    "top_refs": [],
+    "feedback": [
+     {
+      "title": "未进行参考对比",
+      "observation": "未识别为目标动作，不做匹配",
+      "practice": null,
+      "confidence": null
+     }
+    ],
+    "pro": {
+     "status": null,
+     "message": null,
+     "nearest": null,
+     "issues": [],
+     "tentative": []
+    }
+   },
+   "all_swings": [
+    [
+     0,
+     "unknown",
+     0.4
+    ]
+   ]
+  }
+ ]
+}

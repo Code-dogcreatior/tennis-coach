@@ -1,0 +1,28 @@
+youtube_id,player,hand,camera,content,time_scale,note,section
+MUljjSs40lA,Carlos Alcaraz,right,"side, handheld panning/zoom, edited",forehand+backhand_2h,1,,
+15iOJdSaNEo,Jannik Sinner,right,"side, handheld panning/zoom, edited",forehand+backhand_2h,1,,
+2SHNWjhW0zw,Novak Djokovic,right,"side, handheld panning/zoom, edited",forehand+backhand_2h,1,,
+X72ekpsVFds,Daniil Medvedev,right,"side, handheld panning/zoom, edited",forehand+backhand_2h,1,,
+yONnOW55kzY,Alex Eala,left,"side, handheld panning/zoom, edited",forehand+backhand_2h,1,,
+SFPjhs0wPGA,Carlos Alcaraz,right,"side, handheld, edited",forehand,1,,
+4qMGSz6GgbU,Rafael Nadal,left,"side/oblique close-up, handheld",forehand+backhand_2h,1,feet often cut,
+4WUUdz9McfE,Dusan Lajovic,right,"back / oblique back, handheld",backhand_1h+forehand,1,,
+zZ2zmsPIMXI,Roger Federer,right,"back, fixed",backhand_1h+forehand,1,,
+71ZjT4I8VVE,Dominic Thiem,right,"side/front mixed, edited",backhand_1h+forehand,1,a second player appears in the second half,
+rWgw9qCqqUA,Novak Djokovic,right,"back oblique, far",serve,1,,
+QI5adGG6RA8,Roger Federer,right,"back, far",serve,1,,
+HeJjl62c9fY,Holger Rune,right,"side, handheld, edited",forehand+backhand_2h+serve,1,contains slow-motion segments (unknown factor),
+fhn2ANDE4kA,serve compilation (Fritz/Rublev/Alcaraz/Djokovic/Sinner/Zverev/Shelton...),right,"back / oblique back, fixed per shot, edited",serve,unknown,all slow motion (unknown factor) - only geometric checkpoints are meaningful,
+vF9WB1ZhgsI,Ben Shelton,left,"side / back, handheld, edited (first 300 s only)",serve,1,may contain slow-motion segments (unknown factor),0-300
+2LIvDrHNB1Y#cazaux,Arthur Cazaux,right,"side angle, court level, fixed",serve,1,"from 'ATP Serves in 4K' compilation, 57:17-1:07:17 (side-angle section)",3437-4037
+2LIvDrHNB1Y#jarry,Nicolas Jarry,right,"side angle, court level, fixed",serve,1,"from 'ATP Serves in 4K' compilation, 1:07:33-1:14:56 (side-angle section)",4053-4496
+oV5To7zbWcw,Carlos Alcaraz,right,"court level, handheld, edited",serve,1,Jan 2026 serve practice; also groundstrokes with Auger-Aliassime (excluded),
+_Ivgai7BI00,Rafael Nadal,left,"court level, handheld, edited",serve,1,"serve practice, Nordea Open 2024",
+pBTEUUnDQzc,Jannik Sinner,right,"court level, handheld, edited",serve,1,Davis Cup Finals 2023 practice,
+ZJ39LcNagSM,Daniil Medvedev,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",
+k5L2ZpzCNjo,Novak Djokovic,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",
+8Ji1loHxiLQ,Alexander Zverev,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",0-240
+l0pBI1Bvr8o,Valentin Vacherot,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",
+yeKa6zTxh_c,Carlos Alcaraz,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",
+B2uDfNd9QSo,Roger Federer,right,"court level, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",0-240
+pg_dxIvJRZo,Alexander Zverev,right,"side, edited",none,unknown,"EXCLUDED after review: heavy slow motion with dissolves - the detected 'contact' frame is often still the trophy position, so contact checkpoints would be wrong",0-240

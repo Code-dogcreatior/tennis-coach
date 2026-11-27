@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tennis-coach",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "uvicorn", "tennis_coach.api:app", "--host", "127.0.0.1", "--port", "8765"],
+      "port": 8765
+    }
+  ]
+}
