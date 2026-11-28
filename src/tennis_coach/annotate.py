@@ -19,7 +19,8 @@ from pydantic import BaseModel
 from . import config
 
 RAW = config.DATA_DIR / "raw"
-ANNOT_ROOTS = [RAW / "eval_real", RAW / "annotate"]   # put your own videos in data/raw/annotate/
+IMPORT_ROOT = RAW / "annotate"                       # own videos: one folder per video (imported via the page)
+ANNOT_ROOTS = [RAW / "eval_real", IMPORT_ROOT]
 LABEL_DIR = config.ROOT / "data" / "labels" / "annotations"
 VIDEO_EXT = {".mp4", ".mov", ".m4v", ".webm"}
 STROKES = ["forehand", "backhand_1h", "backhand_2h", "serve", "smash", "volley", "other"]
@@ -45,7 +46,7 @@ def label_path(key: str) -> Path:
 
 def _source(p: Path) -> dict:
     """Source URL / licence from a yt-dlp info.json next to the video, if any."""
-    for info in p.parent.glob("*.info.json"):
+    for info in p.parent.glob(p.stem + "*.info.json"):
         try:
             j = json.loads(info.read_text(encoding="utf-8"))
             return {"url": j.get("webpage_url"), "license": j.get("license") or "standard YouTube licence",
@@ -59,7 +60,8 @@ def _probe(p: Path) -> dict:
     import subprocess
     from .video import probe
     i = probe(p)
-    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate,avg_frame_rate,start_time",
+    from .video import _ffbin
+    r = subprocess.run([_ffbin("ffprobe"), "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate,avg_frame_rate,start_time",
                         "-of", "json", str(p)], capture_output=True, text=True)
     st = (json.loads(r.stdout or "{}").get("streams") or [{}])[0]
     t0 = float(st.get("start_time") or 0)
@@ -68,6 +70,16 @@ def _probe(p: Path) -> dict:
     ok = abs(t0) < 1e-3 and cfr
     return {"fps": i.fps, "width": i.width, "height": i.height, "duration": i.duration, "n_frames": i.n_frames,
             "start_time": t0, "cfr": cfr, "frame_exact": ok}
+
+
+def _link(p: Path) -> dict:
+    """<video>.link.json: which app video (analysis) belongs to this annotation copy, and the time offset
+    (copy time = app-video presentation time - offset)."""
+    lp = p.with_name(p.stem + ".link.json")
+    try:
+        return json.loads(lp.read_text(encoding="utf-8")) if lp.exists() else {}
+    except Exception:  # noqa: BLE001
+        return {}
 
 
 def load_labels(key: str) -> dict:
@@ -84,7 +96,11 @@ def list_videos():
         for p in sorted(root.rglob("*")):
             if p.suffix.lower() in VIDEO_EXT and p.is_file():
                 lab = load_labels(_key(p))
-                out.append({"key": _key(p), "name": p.name, "annotators": {
+                if p.name.endswith(".tmp.mp4") or "_src" in p.parts:
+                    continue
+                lk = _link(p)
+                out.append({"key": _key(p), "name": p.name, "root": root.name, "linked_video": lk.get("video_id"),
+                            "deletable": root == IMPORT_ROOT, "annotators": {
                     a: {"n_events": len(b.get("events", [])), "status": b.get("status", "in_progress")}
                     for a, b in lab.get("annotations", {}).items()}})
     return out
@@ -94,7 +110,10 @@ def list_videos():
 def video_info(key: str):
     p = _path(key)
     lab = load_labels(key)
-    return {"key": key, "probe": _probe(p), "source": _source(p), "labels": lab, "strokes": STROKES}
+    return {"key": key, "probe": _probe(p), "source": _source(p), "labels": lab, "strokes": STROKES,
+            "linked_video": _link(p).get("video_id"), "deletable": p.is_relative_to(IMPORT_ROOT.resolve()),
+            # evaluation clips: hints off by default so the labels stay independent of the system
+            "suggest_default": not p.is_relative_to((RAW / "eval_real").resolve())}
 
 
 @router.get("/file")

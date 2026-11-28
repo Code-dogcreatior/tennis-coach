@@ -36,11 +36,26 @@
   .meta-form label { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
   .save-st { font-size: 12px; color: var(--muted); }
   .guide li { margin: 3px 0; }
+  .imp { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+  .imp input[type=text], .imp input[type=number] { width: 100%; }
+  .imp .row { display: flex; gap: 6px; } .imp .row > * { flex: 1; min-width: 0; }
+  .imp fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .imp legend { font-size: 12px; color: var(--muted); padding: 0 4px; }
+  .jobst { font-size: 12px; color: var(--muted); white-space: pre-wrap; }
+  .jobst.err { color: #c0392b; }
+  .vlist .tag { font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-left: 4px; color: var(--muted); }
+  .tl-sys { position: relative; height: 18px; margin: 6px 0 0; border-radius: 6px; background: transparent; border: 1px dashed var(--line); cursor: pointer; }
+  .tl-sys .sg { position: absolute; top: 2px; bottom: 2px; width: 8px; margin-left: -4px; border-radius: 3px; border: 2px solid; background: transparent; }
+  .tl-sys .sg.unk { border-style: dotted; opacity: .7; }
+  .sysbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .sgchips { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 0; }
+  .sgchips button { font-size: 12px; padding: 2px 6px; }
+  .work-head { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
 </style>
 </head>
 <body>
 <header>
-  <h1><span class="logo">🎾</span>网球动作训练助手 <small>挥拍标注（评测集）</small></h1>
+  <h1><span class="logo">🎾</span>网球动作训练助手 <small>挥拍标注</small></h1>
   <nav>
     <a href="/">返回分析</a>
     <a href="annotate.html" class="active">标注</a>
@@ -51,11 +66,26 @@
     <div class="card">
       <h3>视频 <small>data/raw/eval_real/、data/raw/annotate/</small></h3>
       <label class="hint">标注人（只用字母/数字）<input id="annotator" type="text" placeholder="例如 user" style="width:100%"></label>
+      <details class="panel" id="imp-panel"><summary>导入视频</summary>
+        <div class="imp">
+          <fieldset><legend>本地视频</legend>
+            <input id="imp-file" type="file" accept="video/*,.mp4,.mov,.m4v,.webm,.avi,.mkv">
+            <button id="imp-upload">上传并转换</button>
+          </fieldset>
+          <fieldset><legend>YouTube 链接（单个公开视频）</legend>
+            <input id="imp-url" type="text" placeholder="https://www.youtube.com/watch?v=…">
+            <div class="row"><input id="imp-start" type="number" min="0" step="1" placeholder="开始 秒"><input id="imp-end" type="number" min="0" step="1" placeholder="结束 秒"></div>
+            <button id="imp-yt">下载并转换</button>
+          </fieldset>
+          <label class="hint"><input id="imp-analyse" type="checkbox" checked> 同时做系统分析（时间轴上显示系统检出的挥拍，可在“返回分析”里查看结果）</label>
+          <div class="jobst" id="jobst"></div>
+          <p class="hint">视频只保存在本机 <code>data/raw/annotate/</code>，不进 git。会自动转成恒定帧率、首帧在 0 秒，帧号与分析一致。YouTube 未填时间段时只接受 15 分钟以内的视频。</p>
+        </div>
+      </details>
       <ul class="vlist" id="vlist"></ul>
-      <p class="hint">把自己的视频（mp4）放到 <code>data/raw/annotate/</code> 下，刷新页面即可出现。</p>
     </div>
     <div class="card" id="work" style="display:none">
-      <h3 id="vtitle"></h3>
+      <div class="work-head"><h3 id="vtitle"></h3><span><a id="open-an" href="#" style="display:none">在分析页查看</a> <button id="del-video" class="danger" style="display:none">删除视频</button></span></div>
       <p class="hint" id="vsource"></p>
       <div class="player-box"><video id="video" muted playsinline preload="auto"></video><div class="fdisp" id="fdisp"></div></div>
       <div class="ctrl">
@@ -67,7 +97,10 @@
         <label class="hint">速度 <select id="rate"><option>0.25</option><option>0.5</option><option selected>1</option><option>2</option></select></label>
         <span class="save-st" id="savest"></span>
       </div>
+      <div class="sysbar"><label><input id="sys-show" type="checkbox"> 显示系统检出的挥拍（仅作提示，不会写入标注；<kbd>[</kbd>/<kbd>]</kbd> 跳到上/下一个）</label><span id="sys-st"></span></div>
+      <div class="tl-sys" id="tl-sys" style="display:none" title="系统检出的挥拍（虚线框 = 系统判为非目标/未知）"></div>
       <div class="tl" id="tl"><div class="cur" id="cur"></div></div>
+      <div class="sgchips" id="sgchips" style="display:none"></div>
       <div class="strokes" id="strokes"></div>
       <div class="meta-form">
         <label>机位<select id="m-view"><option value="">（未填）</option><option value="side">侧面</option><option value="oblique_front">斜前方</option><option value="front">正面</option><option value="oblique_back">斜后方</option><option value="back">背面</option><option value="mixed">多机位/剪辑</option></select></label>
@@ -85,6 +118,7 @@
           <li>动作类型以实际击球为准：正手 F、单手反手 B、双手反手 D、发球 S、高压 M、截击 V、其他（挑高球、半截击、切削以外的特殊动作等）O。切削反手按单/双手归类，备注写“切削”。</li>
           <li>当前帧附近（±3 帧）已有标注时，再按快捷键会改它的动作类型而不是新建。Delete 删除选中的一条，U 切换“不确定”。</li>
           <li>整段都检查过后把状态改成“已完成”，评测只使用已完成的视频。</li>
+          <li>系统提示只是帮你更快找到挥拍：位置和类型都可能错（击球时刻常有 1–2 帧偏差，也会漏检或误检），一定要自己逐帧确认，不要照抄。评测集视频默认关闭提示。</li>
         </ul>
       </details>
     </div>

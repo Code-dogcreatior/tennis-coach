@@ -11,21 +11,44 @@
 
 ## 1. 准备视频
 
-**公开的评测片段**（8 段 CC BY YouTube 视频，清单在 `data/labels/eval_real_manifest.csv`）：
+视频只保存在本机 `data/raw/`（不进 git），只有标注 JSON 进 git。标注工具要求视频是“恒定帧率、首帧在 0 秒、无音频”的 MP4：
+标注工具按时间定位帧（第 n 帧 = [n/fps, (n+1)/fps)），YouTube 截取的片段常常从第 1 帧的时间开始，手机视频常常是可变帧率，
+这两种情况都会让标注的击球帧和系统分析的帧对不上。下面几种方式都会自动转换；打开未转换的视频时工具会显示红色警告。
+
+**A. 在标注页导入（推荐）**：标注页左侧“导入视频”
+
+* 本地视频：选文件 → “上传并转换”。
+* YouTube：粘贴**单个公开视频**的链接（`youtube.com/watch?v=…`、`youtu.be/…`、`shorts/…`），可填开始/结束秒数只截一段；
+  不填时间段时只接受 15 分钟以内的视频。只下载你给的这一条，不登录、不带 cookies，播放列表/频道链接会被拒绝。
+  注意视频的版权和许可：只给自己标注用，不要再分发。
+* 勾选“同时做系统分析”时，转换好的视频会在后台走一遍完整分析（在“返回分析”里也能看到结果），时间轴上就会出现系统提示（见下）。
+
+每次导入放在 `data/raw/annotate/<名字>/` 一个文件夹里。
+
+**B. 从分析页**：在分析结果页点“标注这个视频”，会生成一份标注用的副本并直接打开，系统检出的挥拍作为提示显示。
+
+**C. 公开评测片段**（8 段 CC BY YouTube 视频，清单在 `data/labels/eval_real_manifest.csv`）：
 
 ```bash
 uv run python scripts/fetch_eval_real.py
 ```
 
-**自己的视频**（例如发球动作库）：先转换成“恒定帧率、首帧在 0 秒、无音频”的 MP4，再放进 `data/raw/annotate/`：
+**D. 批量转换自己的视频**（例如一整个发球动作库）：
 
 ```bash
 uv run python scripts/prep_annotate.py 我的视频/*.mov
 ```
 
-为什么必须转换：标注工具按时间定位帧（第 n 帧 = [n/fps, (n+1)/fps)）。YouTube 截取的片段常常从第 1 帧的时间开始，手机视频常常是可变帧率，这两种情况都会让标注的击球帧和系统分析的帧对不上。工具打开未转换的视频时会显示红色警告。
+### 系统提示
 
-视频本身不进 git（`data/raw/` 被忽略），只有标注 JSON 进 git。
+视频有对应的系统分析时（A 勾选了分析，或 B），时间轴上方的虚线轨道会显示系统检出的每次挥拍（颜色 = 系统判断的动作，点线框 = 系统判为未知/非挥拍），
+下面一排按钮点一下就跳到那一帧，`[` / `]` 跳到上一个/下一个。提示**只显示，不会写进标注**：位置常差 1–2 帧，也会漏检、误检，
+必须自己逐帧确认。评测集（`eval_real`）的视频默认关闭提示，免得标注被系统带偏、评测失真；自己的视频默认打开。
+
+### 删除
+
+标注页上导入的视频可以点“删除视频”：删除视频文件和它的文件夹；会再分别问是否同时删除标注 JSON、是否同时删除对应的系统分析。
+在分析页删除一个视频时，从它生成的标注副本也会一起删除（标注 JSON 保留，里面没有画面）。
 
 ## 2. 标注
 
@@ -69,3 +92,23 @@ git add data/labels/annotations data/labels/eval_real_manifest.csv
 git commit -m "标注：..."
 git push
 ```
+
+## 5. 在另一台电脑上标注（例如请朋友帮忙）
+
+只标注不需要显卡，也不需要模型权重（Git LFS 可以不装；勾选“同时做系统分析”时会自动从 OpenMMLab 下载权重）。
+
+1. 安装 [git](https://git-scm.com/)、[uv](https://docs.astral.sh/uv/)、ffmpeg（Windows：`winget install Gyan.FFmpeg`，装完重开终端）。
+   Windows 上如果启动时 `onnxruntime` 崩溃，再装 VC++ 运行库：`winget install Microsoft.VCRedist.2015+.x64`。
+2. 克隆并启动：
+
+   ```bash
+   git clone https://github.com/Code-dogcreatior/tennis-coach.git
+   cd tennis-coach
+   uv sync
+   uv run tennis-coach
+   ```
+
+3. 浏览器打开 http://127.0.0.1:8765/annotate.html ，左上角填**自己的**标注人名字（不要和别人重名，同一视频两个人都标时会算一致率），
+   需要评测片段时先运行 `uv run python scripts/fetch_eval_real.py`。
+4. 交回标注：仓库协作者直接按第 4 节提交推送；不是协作者的话 fork 后提 PR，或者把 `data/labels/annotations/` 里改过的 JSON 文件发给仓库维护者。
+   导入的 YouTube / 本地视频只用 `data/labels/annotations/` 里的 JSON 交换，视频本身不要提交。

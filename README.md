@@ -72,20 +72,22 @@ uv run python scripts/ref_pack.py import
 * THETIS 平击发球 66 段：54 段识别为发球，12 段拒识为“未知”，没有被判成其他动作。
 * **高压和发球在 2D 骨架上很难区分**：THETIS 66 段高压里，38 段仍被判为发球。系统用“抛球前非持拍手有没有降到髋部以下”区分，看起来像高压时会显示“可能是高压”并把置信度压到 35%：被判为发球的高压中有 17/38 被标记，真发球只有 4/54 被误标。这个特征在训练组和测试组上的表现不稳定，直接拒识会丢掉约 1/5 的业余发球，所以只做提示，不做拒识。
 
+**真实场地（已标注的 1 段斜前方业余发球视频，8 次发球）**：8 次全部检出并判为发球，击球时刻中位误差 −33 ms（早 1 帧），±3 帧内 100%。这段视频里球员弯腰捡球的 3 个动作原来被判成正手/单反，现在按“手腕降到膝盖以下”判为非挥拍（见报告 8g）。
+
 **尚未覆盖**：没有真实场地的侧面业余发球标注数据（侧面检查点没有在业余球员上验证）；左手球员的职业发球很少；还没有教练对诊断结果做过复核。
 
 ## 命令行与脚本
 
 | 命令 | 作用 |
 |---|---|
-| `uv run pytest -q` | 单元测试，共 28 个（镜像标签语义、左右手等价、阶段顺序、节奏保留、DTW、可变帧率、左右跳变修正、跟踪重选、同机位职业范围、kNN 投票方式、高压提示） |
+| `uv run pytest -q` | 单元测试，共 33 个（镜像标签语义、左右手等价、阶段顺序、节奏保留、DTW、可变帧率、左右跳变修正、跟踪重选、同机位职业范围、kNN 投票方式、高压提示、弯腰捡球拒识、标注接口安全、YouTube 链接校验、提示时间换算） |
 | `uv run python scripts/inspect_video.py <video> [--hand left] [--ts unknown] [--sheet out.jpg]` | 命令行分析单个视频，输出关键事件帧拼图 |
 | `uv run python scripts/fetch_thetis.py` | 下载 THETIS RGB 子集（可复现，生成 manifest，带许可说明） |
 | `uv run python scripts/thetis_apparent_hand.py` | 生成 THETIS 每名球员“画面中持拍手”的真值（仅用于评测） |
 | `uv run python scripts/eval_thetis.py --hand gt` / `--hand auto` | 按球员隔离的评测，输出到 `reports/` |
 | `uv run python scripts/eval_knn_library.py` | 用应用实际参考库比较 kNN 投票方式（plain / source / balanced）在 THETIS 和职业留一上的识别效果 → `reports/knn_library_eval.json` |
 | `uv run python scripts/fetch_eval_real.py` | 下载真实场景评测片段（8 段 CC BY 业余视频，清单 `data/labels/eval_real_manifest.csv`），并转换成标注要求的格式 |
-| `uv run python scripts/prep_annotate.py <视频…>` | 把自己的视频转换成恒定帧率、首帧 0 秒、无音频的 MP4，放进 `data/raw/annotate/` 供标注 |
+| `uv run python scripts/prep_annotate.py <视频…>` | 批量把自己的视频转换成恒定帧率、首帧 0 秒、无音频的 MP4，放进 `data/raw/annotate/<名字>/` 供标注（单个视频也可以直接在标注页“导入视频”） |
 | `uv run python scripts/eval_real.py [--annotator 名字]` | 用 `/annotate.html` 标注的结果评测检出率、动作识别、击球时刻误差和持拍手 → `reports/eval_real.md`（标注说明见 [docs/ANNOTATION.md](docs/ANNOTATION.md)） |
 | `uv run python scripts/ref_pack.py export / import / remove` | 导出、导入、删除职业参考包（只有关键点等派生数据，没有视频画面），默认文件 `refpack/pro_reference_pack.zip` |
 | `uv run python scripts/fetch_pro.py [--only ID ...]` | 按 `data/labels/pro_manifest.csv` 用 yt-dlp 下载职业训练视频到 `data/raw/pro/<id>/`（公开视频、不登录；`section` 列可只截一段） |
@@ -112,6 +114,12 @@ uv run python scripts/ref_pack.py import
 | GET | `/api/videos/{id}/file` | 转码后的视频 |
 | GET | `/api/videos/{id}/corrections` | 纠错日志 |
 | GET/PATCH/DELETE | `/api/references[/{id}]` | 参考条目：动作、审核状态（demo/coach_reviewed 需要审核人/rejected）、风格、启用 |
+| GET | `/api/annot/videos`、`/api/annot/video?key=` | 可标注的视频（`data/raw/eval_real/`、`data/raw/annotate/`）及其标注 |
+| PUT | `/api/annot/labels?key=` | 保存一个标注人的标注 |
+| POST | `/api/annot/import/upload`、`/api/annot/import/youtube` | 导入本地视频 / 单个公开 YouTube 视频（可截取时间段），转换为标注格式，可选同时分析；返回任务，`GET /api/annot/jobs/{id}` 查进度 |
+| POST | `/api/annot/from_video/{id}` | 为分析页里的视频生成标注副本 |
+| GET | `/api/annot/suggestions?key=` | 系统检出的挥拍（换算成标注副本的帧号，仅作提示） |
+| DELETE | `/api/annot/video?key=&labels=&app_video=` | 删除导入的视频（可选同时删除标注、对应分析）；评测集视频不能在这里删除 |
 
 ## 目录
 

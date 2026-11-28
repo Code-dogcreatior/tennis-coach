@@ -218,6 +218,7 @@ def delete_ref(rid: int):
 
 
 # ---------------------------------------------------------------------------------------------- annotation
+from . import annot_import  # noqa: E402,F401  (registers the import / hint routes on the annotation router)
 from .annotate import router as annot_router  # noqa: E402
 
 app.include_router(annot_router)

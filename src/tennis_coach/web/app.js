@@ -99,6 +99,7 @@ async function openAnalysis(id) {
     await api(`/api/videos/${id}`, { method: "DELETE" }); currentId = null; root.innerHTML = `<p class="empty">已删除。</p>`; refreshQueries();
   };
   $(".btn-reanalyse", root).onclick = async () => { await api(`/api/videos/${id}/reanalyse`, { method: "POST" }); poll(); };
+  $(".btn-annotate", root).onclick = (e) => annotateVideo(id, e.currentTarget);
   if (v.status !== "done" || !v.analysis) {
     $(".status-line", root).innerHTML = statusBadge(v) + (v.error ? " " + esc(v.error) : " 处理中，完成后自动显示…");
     $(".an-body", root).style.display = "none"; poll(); return;
@@ -115,6 +116,22 @@ async function openAnalysis(id) {
   $$("button", tabs).forEach((b) => b.onclick = () => selectSwing(+b.dataset.i));
   setupPlayback();
   selectSwing(a.primary_swing ?? a.swings[0].index);
+}
+
+// annotation copy (constant frame rate, first frame at 0 s) of this video, then open it on the annotation page,
+// where the system's swings are shown as hints on the timeline
+async function annotateVideo(id, btn) {
+  const old = btn.textContent; btn.disabled = true;
+  try {
+    let j = await api(`/api/annot/from_video/${id}`, { method: "POST" });
+    while (j.state === "running") {
+      btn.textContent = `准备标注副本：${j.stage}…`;
+      await new Promise((r) => setTimeout(r, 800));
+      j = await api(`/api/annot/jobs/${j.id}`);
+    }
+    if (j.state !== "done") throw new Error(j.error || "失败");
+    location.href = `annotate.html?key=${encodeURIComponent(j.key)}`;
+  } catch (e) { alert(`无法打开标注：${e.message}`); btn.textContent = old; btn.disabled = false; }
 }
 
 async function selectSwing(i) {
@@ -559,5 +576,7 @@ function renderAbout() {
   for (const sel of $$("select[name=action]")) for (const [k, l] of Object.entries(META.actions)) if (k !== "unknown") sel.insertAdjacentHTML("beforeend", `<option value="${k}">${esc(l)}</option>`);
   renderAbout();
   await refreshQueries();
+  const deep = new URLSearchParams(location.search).get("video");   // annotate.html links back with ?video=<id>
+  if (deep) openAnalysis(deep).catch(() => {});
   poll();
 })();

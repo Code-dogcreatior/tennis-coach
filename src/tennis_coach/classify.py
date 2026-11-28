@@ -49,6 +49,21 @@ def toss_hand_low(C: np.ndarray, t: np.ndarray, i_contact: int, i_toss: int) -> 
     return float(np.nanmin(y)) if np.isfinite(y).any() else None
 
 
+GROUND_REACH_THR = -0.6   # lowest wrist - knee height (torso lengths); below this -> bending down, not a stroke
+
+
+def ground_reach(C: np.ndarray, t: np.ndarray, ic: int, half_s: float = 0.4) -> float | None:
+    """Lowest wrist (either hand) relative to the knee height in +-half_s around the wrist-speed peak
+    (torso lengths, up = +). Strongly negative when the player bends down to the court."""
+    fps = 1 / float(np.median(np.diff(t)))
+    lo, hi = max(0, ic - int(half_s * fps)), min(len(t), ic + int(half_s * fps) + 1)
+    knee = (C[lo:hi, H["h_knee"], 1] + C[lo:hi, H["n_knee"], 1]) / 2
+    wr = np.fmin(C[lo:hi, H["h_wri"], 1], C[lo:hi, H["n_wri"], 1])
+    if not (np.isfinite(knee).any() and np.isfinite(wr).any()):
+        return None
+    return float(np.nanmin(wr) - np.nanmedian(knee))
+
+
 def rule_classify(C: np.ndarray, t: np.ndarray, w: SwingWindow, view_key: str,
                   min_speed: float = MIN_PEAK_SPEED) -> Classification:
     fps = 1 / np.median(np.diff(t))
@@ -62,6 +77,13 @@ def rule_classify(C: np.ndarray, t: np.ndarray, w: SwingWindow, view_key: str,
     if peak < min_speed or peak < 0.5 * w.peak_speed:
         return Classification("unknown", 0.8, [f"持拍手腕相对速度峰值 {peak:.1f} 低于挥拍阈值 {min_speed:.1f}，判定为非挥拍动作"],
                               "unknown", 0.8, scores={"non_stroke": 1.0})
+    reach = ground_reach(C, t, ic)
+    if reach is not None and reach < GROUND_REACH_THR:
+        # bending down (picking up a ball, touching the court): fast wrist motion but no stroke. Real strokes
+        # never bring a wrist this far below the knees (THETIS + pro library, 792 swings incl. volleys: >= -0.15).
+        return Classification("unknown", 0.8, [f"峰值前后 0.4 s 内手腕降到膝盖以下 {-reach:.2f} 躯干长，"
+                                               "判定为弯腰（捡球等）而非挥拍"], "unknown", 0.8,
+                              scores={"non_stroke": 1.0, "ground_reach": reach})
     ok_serve, i_con, hw_above, toss, i_toss = serve_pattern(C, t, w, H["h_wri"], H["n_wri"])
     ev.append(f"峰值前持拍手腕最高比鼻子高 {hw_above:+.2f} 躯干长；此前非持拍手腕最高比鼻子高 {toss:+.2f}")
     if hw_above > 0.25:
@@ -170,6 +192,8 @@ def combine_with_knn(rule: Classification, knn: dict | None) -> Classification:
         rule.evidence.append("参考库中没有可比对的同机位参考，仅使用规则判断")
         return rule
     rule.knn = knn
+    if rule.scores.get("ground_reach") is not None:
+        return rule     # bending down: posture rules this out, the reference vote must not relabel it
     if knn["nearest_cost"] > knn["cost_threshold"]:
         rule.evidence.append(f"与最近参考的 DTW 距离 {knn['nearest_cost']:.2f} 超过阈值 {knn['cost_threshold']:.2f}，与库内动作都不相似")
         if rule.rule_confidence < 0.6:

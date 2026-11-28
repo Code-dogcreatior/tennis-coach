@@ -335,9 +335,30 @@ def delete_video(vid: str):
             pass
     shutil.rmtree(video_dir(vid), ignore_errors=True)
     shutil.rmtree(derived_dir(vid), ignore_errors=True)
+    _unlink_annotation_copies(vid)
     _ = pose_npz
     db.delete_video(vid)
     return True
+
+
+def _unlink_annotation_copies(vid: str):
+    """An annotation copy made *from* this video is a derived file and goes with it (the labels JSON stays: it holds
+    no image data). A video imported on the annotation page only loses its link to this analysis."""
+    import json
+    root = config.DATA_DIR / "raw" / "annotate"
+    if not root.exists():
+        return
+    for lp in root.glob("*/*.link.json"):
+        try:
+            lk = json.loads(lp.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            continue
+        if lk.get("video_id") != vid:
+            continue
+        if lk.get("origin") == "app" and lp.parent.parent == root:
+            shutil.rmtree(lp.parent, ignore_errors=True)
+        else:
+            lp.unlink(missing_ok=True)
 
 
 def load_pose(vid: str) -> PoseSeq | None:

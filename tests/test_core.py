@@ -196,6 +196,29 @@ def test_toss_hand_low_flags_smash_like_preparation():
     assert combine_with_knn(rule, kv).confidence <= 0.35      # kNN agreement must not hide the smash flag
 
 
+def test_ground_reach_rejects_bending_down_even_against_knn():
+    """Picking up a ball: fast wrist motion with a wrist far below the knees -> non-stroke, not relabelled by kNN."""
+    import numpy as np
+    from tennis_coach.classify import GROUND_REACH_THR, combine_with_knn, ground_reach, rule_classify
+    from tennis_coach.skeleton import CANON as H
+    from tennis_coach.swing import SwingWindow
+    fps, T = 30.0, 90
+    t = np.arange(T) / fps
+    C = np.zeros((T, 17, 2))
+    C[:, H["h_knee"], 1] = C[:, H["n_knee"], 1] = -1.0
+    C[:, H["h_sho"], 1] = C[:, H["n_sho"], 1] = 1.0
+    stroke = C.copy()
+    stroke[:, H["h_wri"], 0] = np.linspace(0, 6, T)                    # steady lateral wrist motion at hip level
+    pick = stroke.copy()
+    pick[40:50, H["n_wri"], 1] = -2.5                                   # free hand down to the court
+    assert ground_reach(stroke, t, 45) > GROUND_REACH_THR > ground_reach(pick, t, 45)
+    w = SwingWindow(0, 45, T - 1, 0, 1.5, 3, 1.0, "right", False, False)
+    r = rule_classify(pick, t, w, "front", min_speed=0.1)
+    assert r.action == "unknown" and r.scores.get("non_stroke") and "ground_reach" in r.scores
+    kv = {"label": "forehand", "votes": {"forehand": 3}, "k": 3, "nearest_cost": 0.5, "cost_threshold": 1.6}
+    assert combine_with_knn(r, kv).action == "unknown"
+
+
 def test_annotation_api_only_serves_videos_under_annotation_roots():
     import pytest
     from fastapi import HTTPException
@@ -204,3 +227,50 @@ def test_annotation_api_only_serves_videos_under_annotation_roots():
         with pytest.raises(HTTPException):
             _path(bad)
     assert label_path("eval_real/a/b.mp4").name == "eval_real__a__b.json"
+
+
+def test_youtube_links_only_single_videos():
+    from tennis_coach.annotprep import youtube_id
+    ok = {"https://www.youtube.com/watch?v=uvb8HhH3Wq0": "uvb8HhH3Wq0", "https://youtu.be/uvb8HhH3Wq0?t=3": "uvb8HhH3Wq0",
+          "https://m.youtube.com/watch?feature=x&v=kbRR2CRhOTI": "kbRR2CRhOTI",
+          "https://www.youtube.com/shorts/PSp4k21wsS8": "PSp4k21wsS8", "uvb8HhH3Wq0": "uvb8HhH3Wq0"}
+    for u, y in ok.items():
+        assert youtube_id(u) == y
+    for bad in ("https://www.youtube.com/playlist?list=PL123", "https://evil.example/watch?v=uvb8HhH3Wq0",
+                "https://www.youtube.com/@channel", "--exec=calc", "", "https://youtube.com.evil.io/watch?v=uvb8HhH3Wq0"):
+        assert youtube_id(bad) is None
+
+
+def test_suggestion_times_map_to_annotation_copy_frames():
+    from tennis_coach.annot_import import suggestion_swings
+    an = {"video_t0": 0.5, "swings": [
+        {"index": 0, "action": "serve", "classification": {"confidence": 0.6, "scores": {}},
+         "phases": {"events": {"contact": {"tv": 2.0}}}, "window": {"tv_peak": 2.2}},
+        {"index": 1, "action": "unknown", "classification": {"confidence": 0.8, "scores": {"non_stroke": 1.0}},
+         "phases": None, "window": {"tv_peak": 4.0}}]}
+    s = suggestion_swings(an, fps=30.0, offset=0.5)        # copy time = presentation time - first pts
+    assert [g["frame"] for g in s] == [60, 120]
+    assert s[0]["contact_estimated"] and not s[1]["contact_estimated"] and s[1]["non_stroke"]
+
+
+def test_annotation_delete_only_imported_videos(tmp_path, monkeypatch):
+    import pytest
+    from fastapi import HTTPException
+    import tennis_coach.annotate as A
+    import tennis_coach.annot_import as I
+    raw = tmp_path / "raw"
+    (raw / "eval_real" / "x").mkdir(parents=True); (raw / "annotate" / "up_a").mkdir(parents=True)
+    (raw / "eval_real" / "x" / "x.mp4").write_bytes(b"0")
+    (raw / "annotate" / "up_a" / "up_a.mp4").write_bytes(b"0")
+    (raw / "annotate" / "up_a" / "up_a.link.json").write_text('{"video_id": "abc"}')
+    labels = tmp_path / "labels"; labels.mkdir()
+    for mod in (A, I):
+        monkeypatch.setattr(mod, "IMPORT_ROOT", raw / "annotate", raising=False)
+    monkeypatch.setattr(A, "RAW", raw); monkeypatch.setattr(A, "ANNOT_ROOTS", [raw / "eval_real", raw / "annotate"])
+    monkeypatch.setattr(A, "LABEL_DIR", labels)
+    (labels / "annotate__up_a__up_a.json").write_text("{}")
+    with pytest.raises(HTTPException):
+        I.delete_video("eval_real/x/x.mp4")
+    r = I.delete_video("annotate/up_a/up_a.mp4", labels=False)
+    assert r["video"] and not (raw / "annotate" / "up_a").exists() and (labels / "annotate__up_a__up_a.json").exists()
+    assert (raw / "eval_real" / "x" / "x.mp4").exists()

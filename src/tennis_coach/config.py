@@ -31,7 +31,7 @@ DET_EVERY = 6            # run person detector every N frames (and on track loss
 KPT_THR = 0.3            # RTMPose SimCC score below which a keypoint is treated as unreliable
 
 # Analysis version — bump when the analysis logic changes so cached results are recomputed.
-ANALYSIS_VERSION = "0.1.0"
+ANALYSIS_VERSION = "0.1.1"
 
 for d in (STORE_DIR, DERIVED_DIR):
     d.mkdir(parents=True, exist_ok=True)
