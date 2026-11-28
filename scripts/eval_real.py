@@ -22,7 +22,7 @@ import numpy as np
 
 from tennis_coach import service
 from tennis_coach.analysis import analyse_video
-from tennis_coach.annotate import LABEL_DIR, RAW
+from tennis_coach.annotate import LABEL_DIR, RAW, labelled_videos, load_labels
 
 MATCH_S = 0.4                 # max |system contact - labelled contact| for a match
 TARGET = {"forehand", "backhand_1h", "backhand_2h", "serve"}
@@ -78,8 +78,10 @@ def main():
     a = ap.parse_args()
     refs = service.load_refs()
     rows, per_video, agree = [], [], []
-    for lp in sorted(LABEL_DIR.glob("*.json")):
-        lab = json.loads(lp.read_text(encoding="utf-8"))
+    for video in labelled_videos():
+        lab = load_labels(video)
+        if "probe" not in lab:
+            continue
         anns = lab.get("annotations", {})
         usable = {k: v for k, v in anns.items() if a.include_unfinished or v.get("status") == "done"}
         if not usable:

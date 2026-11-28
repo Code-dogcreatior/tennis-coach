@@ -1,8 +1,8 @@
 """Ground-truth annotation of real videos (evaluation set): which strokes happen and their contact frames.
 
 Videos are read from ANNOT_ROOTS (never uploaded anywhere); labels are JSON files under data/labels/annotations/
-(committed to git, small). One file per video, one block per annotator, so two people can label the same
-video and their agreement can be measured. Frame numbers are the ground truth; seconds are kept for
+(committed to git, small): one file per video and annotator (<video>__<annotator>.json), so two people can label
+the same video without git conflicts and their agreement can be measured. Frame numbers are the ground truth; seconds are kept for
 convenience.
 """
 from __future__ import annotations
@@ -40,8 +40,42 @@ def _path(key: str) -> Path:
     return p
 
 
-def label_path(key: str) -> Path:
-    return LABEL_DIR / (key.replace("/", "__").rsplit(".", 1)[0] + ".json")
+def _label_base(key: str) -> str:
+    return key.replace("/", "__").rsplit(".", 1)[0]
+
+
+def label_path(key: str, annotator: str) -> Path:
+    """One file per video *and annotator*: two people never edit the same file, so git never has to merge them."""
+    return LABEL_DIR / f"{_label_base(key)}__{annotator}.json"
+
+
+def legacy_label_path(key: str) -> Path:
+    """Before 2026-11-28 all annotators of a video shared one file (still read, rewritten on the next save)."""
+    return LABEL_DIR / f"{_label_base(key)}.json"
+
+
+def label_files(key: str) -> list[Path]:
+    """All label files of a video (per-annotator files; the legacy shared file, if any, first)."""
+    out = [legacy_label_path(key)] if legacy_label_path(key).exists() else []
+    for f in sorted(LABEL_DIR.glob(f"{_label_base(key)}__*.json")):
+        try:
+            if json.loads(f.read_text(encoding="utf-8")).get("video") == key:   # not another video with this prefix
+                out.append(f)
+        except Exception:  # noqa: BLE001
+            pass
+    return out
+
+
+def labelled_videos() -> list[str]:
+    keys = set()
+    for f in LABEL_DIR.glob("*.json") if LABEL_DIR.exists() else []:
+        try:
+            v = json.loads(f.read_text(encoding="utf-8")).get("video")
+        except Exception:  # noqa: BLE001
+            continue
+        if v:
+            keys.add(v)
+    return sorted(keys)
 
 
 def _source(p: Path) -> dict:
@@ -82,9 +116,42 @@ def _link(p: Path) -> dict:
         return {}
 
 
+ANNOT_META = ("video", "annotator", "source", "probe")
+
+
 def load_labels(key: str) -> dict:
-    lp = label_path(key)
-    return json.loads(lp.read_text(encoding="utf-8")) if lp.exists() else {"video": key, "annotations": {}}
+    """All annotators of a video merged: {"video", "source", "probe", "annotations": {annotator: block}}."""
+    lab = {"video": key, "annotations": {}}
+    for f in label_files(key):
+        j = json.loads(f.read_text(encoding="utf-8"))
+        for k in ("source", "probe"):
+            if j.get(k):
+                lab[k] = j[k]
+        if "annotations" in j:                       # legacy shared file
+            lab["annotations"].update(j["annotations"])
+        elif j.get("annotator"):
+            lab["annotations"][j["annotator"]] = {k: v for k, v in j.items() if k not in ANNOT_META}
+    return lab
+
+
+def write_annotation(key: str, annotator: str, block: dict, source: dict, probe: dict) -> Path:
+    LABEL_DIR.mkdir(parents=True, exist_ok=True)
+    lp = label_path(key, annotator)
+    lp.write_text(json.dumps({"video": key, "annotator": annotator, "source": source, "probe": probe, **block},
+                             ensure_ascii=False, indent=1), encoding="utf-8")
+    return lp
+
+
+def split_legacy(key: str):
+    """Move the blocks of a legacy shared file into per-annotator files (existing per-annotator files win)."""
+    lp = legacy_label_path(key)
+    if not lp.exists():
+        return
+    j = json.loads(lp.read_text(encoding="utf-8"))
+    for who, block in (j.get("annotations") or {}).items():
+        if not label_path(key, who).exists():
+            write_annotation(key, who, block, j.get("source") or {}, j.get("probe") or {})
+    lp.unlink()
 
 
 @router.get("/videos")
@@ -144,12 +211,7 @@ def save_labels(key: str, a: Annotation):
         events.append({"frame": e["frame"], "t": round(float(e.get("t", 0.0)), 4), "stroke": e["stroke"],
                        "unsure": bool(e.get("unsure", False)), "note": str(e.get("note", ""))[:200]})
     events.sort(key=lambda e: e["frame"])
-    lab = load_labels(key)
-    lab["video"] = key
-    lab["source"] = _source(p)
-    lab["probe"] = _probe(p)
-    lab.setdefault("annotations", {})[a.annotator] = {
-        **a.model_dump(exclude={"events", "annotator"}), "events": events, "saved": time.strftime("%Y-%m-%d %H:%M:%S")}
-    LABEL_DIR.mkdir(parents=True, exist_ok=True)
-    label_path(key).write_text(json.dumps(lab, ensure_ascii=False, indent=1), encoding="utf-8")
+    split_legacy(key)
+    block = {**a.model_dump(exclude={"events", "annotator"}), "events": events, "saved": time.strftime("%Y-%m-%d %H:%M:%S")}
+    write_annotation(key, a.annotator, block, _source(p), _probe(p))
     return {"ok": True, "n_events": len(events)}

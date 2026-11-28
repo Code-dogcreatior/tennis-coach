@@ -226,7 +226,7 @@ def test_annotation_api_only_serves_videos_under_annotation_roots():
     for bad in ("../tennis_coach.sqlite3", "eval_real/../../pyproject.toml", "pro/x/x.mp4", "eval_real/none.mp4"):
         with pytest.raises(HTTPException):
             _path(bad)
-    assert label_path("eval_real/a/b.mp4").name == "eval_real__a__b.json"
+    assert label_path("eval_real/a/b.mp4", "anna").name == "eval_real__a__b__anna.json"
 
 
 def test_youtube_links_only_single_videos():
@@ -268,9 +268,28 @@ def test_annotation_delete_only_imported_videos(tmp_path, monkeypatch):
         monkeypatch.setattr(mod, "IMPORT_ROOT", raw / "annotate", raising=False)
     monkeypatch.setattr(A, "RAW", raw); monkeypatch.setattr(A, "ANNOT_ROOTS", [raw / "eval_real", raw / "annotate"])
     monkeypatch.setattr(A, "LABEL_DIR", labels)
-    (labels / "annotate__up_a__up_a.json").write_text("{}")
+    (labels / "annotate__up_a__up_a__x.json").write_text('{"video": "annotate/up_a/up_a.mp4", "annotator": "x"}')
     with pytest.raises(HTTPException):
         I.delete_video("eval_real/x/x.mp4")
     r = I.delete_video("annotate/up_a/up_a.mp4", labels=False)
-    assert r["video"] and not (raw / "annotate" / "up_a").exists() and (labels / "annotate__up_a__up_a.json").exists()
+    assert r["video"] and not (raw / "annotate" / "up_a").exists() and (labels / "annotate__up_a__up_a__x.json").exists()
     assert (raw / "eval_real" / "x" / "x.mp4").exists()
+
+
+def test_labels_one_file_per_annotator_and_legacy_files_are_split(tmp_path, monkeypatch):
+    import json
+    import tennis_coach.annotate as A
+    monkeypatch.setattr(A, "LABEL_DIR", tmp_path)
+    key = "eval_real/v/v.mp4"
+    # legacy shared file with two annotators, plus another video whose name starts with the same prefix
+    (tmp_path / "eval_real__v__v.json").write_text(json.dumps({"video": key, "probe": {"fps": 30},
+        "annotations": {"a": {"status": "done", "events": [{"frame": 1}]}, "b": {"events": []}}}))
+    (tmp_path / "eval_real__v__v__x__a.json").write_text(json.dumps({"video": "eval_real/v/v__x.mp4", "annotator": "a", "events": [9]}))
+    assert set(A.load_labels(key)["annotations"]) == {"a", "b"}
+    A.split_legacy(key)
+    assert not (tmp_path / "eval_real__v__v.json").exists()
+    assert sorted(f.name for f in A.label_files(key)) == ["eval_real__v__v__a.json", "eval_real__v__v__b.json"]
+    A.write_annotation(key, "b", {"status": "done", "events": [{"frame": 5}]}, {}, {"fps": 30})   # b saves: a untouched
+    lab = A.load_labels(key)
+    assert lab["annotations"]["a"]["events"] == [{"frame": 1}] and lab["annotations"]["b"]["events"] == [{"frame": 5}]
+    assert lab["probe"] == {"fps": 30} and "eval_real/v/v__x.mp4" in A.labelled_videos()

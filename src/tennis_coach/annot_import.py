@@ -21,7 +21,7 @@ from fastapi import File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
 
 from . import annotprep, config
-from .annotate import IMPORT_ROOT, VIDEO_EXT, _key, _link, _path, _probe, label_path, router
+from .annotate import IMPORT_ROOT, VIDEO_EXT, _key, _link, _path, _probe, label_files, router
 
 log = logging.getLogger(__name__)
 _jobs: dict[str, dict] = {}
@@ -249,9 +249,11 @@ def delete_video(key: str, labels: bool = False, app_video: bool = False):
         for q in (p, p.with_name(p.stem + ".link.json"), p.with_name(p.stem + ".info.json")):
             q.unlink(missing_ok=True)
     removed = {"video": True, "labels": False, "app_video": False}
-    if labels and label_path(key).exists():
-        label_path(key).unlink()
-        removed["labels"] = True
+    if labels:
+        files = label_files(key)
+        for f in files:
+            f.unlink()
+        removed["labels"] = bool(files)
     if app_video and lk.get("video_id"):
         removed["app_video"] = bool(service.delete_video(lk["video_id"]))
     return removed

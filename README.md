@@ -80,7 +80,7 @@ uv run python scripts/ref_pack.py import
 
 | 命令 | 作用 |
 |---|---|
-| `uv run pytest -q` | 单元测试，共 33 个（镜像标签语义、左右手等价、阶段顺序、节奏保留、DTW、可变帧率、左右跳变修正、跟踪重选、同机位职业范围、kNN 投票方式、高压提示、弯腰捡球拒识、标注接口安全、YouTube 链接校验、提示时间换算） |
+| `uv run pytest -q` | 单元测试，共 34 个（镜像标签语义、左右手等价、阶段顺序、节奏保留、DTW、可变帧率、左右跳变修正、跟踪重选、同机位职业范围、kNN 投票方式、高压提示、弯腰捡球拒识、标注接口安全、YouTube 链接校验、提示时间换算、按标注人分文件） |
 | `uv run python scripts/inspect_video.py <video> [--hand left] [--ts unknown] [--sheet out.jpg]` | 命令行分析单个视频，输出关键事件帧拼图 |
 | `uv run python scripts/fetch_thetis.py` | 下载 THETIS RGB 子集（可复现，生成 manifest，带许可说明） |
 | `uv run python scripts/thetis_apparent_hand.py` | 生成 THETIS 每名球员“画面中持拍手”的真值（仅用于评测） |
